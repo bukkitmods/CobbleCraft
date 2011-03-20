@@ -8,11 +8,16 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 
 public class CobbleCraftFileHandler {
+	private CobbleCraft plugin;	
 	
-	public static void writePlayerFile(String fileName){
+	CobbleCraftFileHandler(CobbleCraft plugin) {
+		this.plugin = plugin;
+	}
+	
+	public void writePlayerFile(String fileName){
 		File file = new File(fileName);
-		if(!file.exists()){
-			try{
+		if (!file.exists()){
+			try {
 				file.createNewFile();
 				writeProperty(fileName, "MINING", 0.00);
 				writeProperty(fileName, "FISHING", 0.00);
@@ -20,25 +25,27 @@ public class CobbleCraftFileHandler {
 				writeProperty(fileName, "ARCHERY", 0.00);
 				writeProperty(fileName, "DIGGING", 0.00);
 				writeProperty(fileName, "FARMING", 0.00);
-			}catch(IOException ex){}
+			} catch(IOException ex) {
+				plugin.consoleWarning(ex.toString());
+			}
 		}
 	}
 
 	public static void writeDir(String fileDir){
 		File file = new File(fileDir);
-		if(!file.exists()){
+		if (!file.exists()){
 			file.mkdir();
 		}
 	}
 	
-	public static void writeProperty(String fileName, String keys, double d){
+	public void writeProperty(String fileName, String keys, double d){
 		File file = new File(fileName);
 		String key = keys;
 		PropertyOrder props = new PropertyOrder();
 		d = r2d(d);
 		String value = String.valueOf(d);
 		
-		if(!file.exists()) { writePlayerFile(fileName); }
+		if (!file.exists()) { writePlayerFile(fileName); }
 		
 		
 		try {
@@ -50,11 +57,13 @@ public class CobbleCraftFileHandler {
 		try {
 			props.store(new FileOutputStream(file), null);
 		} catch (FileNotFoundException e) {
+			plugin.consoleWarning(e.toString());
 		} catch (IOException e) {
+			plugin.consoleWarning(e.toString());
 		}
 	}
 	
-	public static void editProperty(String fileName, String keys, double d){
+	public void editProperty(String fileName, String keys, double d){
 		File file = new File(fileName);
 		PropertyOrder props = new PropertyOrder();
 		String key = keys;
@@ -67,102 +76,110 @@ public class CobbleCraftFileHandler {
 			String value = String.valueOf(totalValue);
 			props.setProperty(key, value);
 			props.store(new FileOutputStream(file), null);
-		}catch (FileNotFoundException e) {
+		} catch (FileNotFoundException e) {
+			plugin.consoleWarning(e.toString());
 		} catch (IOException e) {
+			plugin.consoleWarning(e.toString());
 		}
 	}
 
-	public static Double getProperty(String fileName, String keys){
+	public double getProperty(String fileName, String keys){
 		PropertyOrder props = new PropertyOrder();
 		File file = new File(fileName);
-		if(!file.exists()){ writePlayerFile(fileName); }
+		if (!file.exists()){ writePlayerFile(fileName); }
 		
 		try {
 			props.load(new FileInputStream(file));
 		} catch (FileNotFoundException e) {
+			plugin.consoleWarning(e.toString());
 		} catch (IOException e) {
+			plugin.consoleWarning(e.toString());
 		}
 		Double value = r2d(Double.parseDouble(props.getProperty(keys)));
 		return value;
 	}
 
-	public static int getLevel(String fileName, String keys){
+	public int getLevel(String fileName, String keys){
 		File file = new File(fileName);
 		PropertyOrder props = new PropertyOrder();
 		try {
 			props.load(new FileInputStream(file));
-		} catch (FileNotFoundException e) {} catch (IOException e) {}
-		int statProgress = (int) Math.round(Double.parseDouble(props.getProperty(keys)));
+		} catch (FileNotFoundException e) {
+			plugin.consoleWarning(e.toString());
+		} catch (IOException e) {
+			plugin.consoleWarning(e.toString());
+		}
+		int statProgress = (int)Math.floor(Double.parseDouble(props.getProperty(keys)));
 		int statLevel = 0;
 		
-		if(keys.equalsIgnoreCase("DIGGING")){
-			if(statProgress <= LevelValues.DiggingLevels[0]) { statLevel = 0; }
-			if(statProgress <= LevelValues.DiggingLevels[1] && statProgress > LevelValues.DiggingLevels[0]) { statLevel = 1; }
-			if(statProgress <= LevelValues.DiggingLevels[2] && statProgress > LevelValues.DiggingLevels[1]) { statLevel = 2; }
-			if(statProgress <= LevelValues.DiggingLevels[3] && statProgress > LevelValues.DiggingLevels[2]) { statLevel = 3; }
-			if(statProgress <= LevelValues.DiggingLevels[4] && statProgress > LevelValues.DiggingLevels[3]) { statLevel = 4; }
-			if(statProgress <= LevelValues.DiggingLevels[5] && statProgress > LevelValues.DiggingLevels[4]) { statLevel = 5; }
-			if(statProgress <= LevelValues.DiggingLevels[6] && statProgress > LevelValues.DiggingLevels[5]) { statLevel = 6; }
-			if(statProgress <= LevelValues.DiggingLevels[7] && statProgress > LevelValues.DiggingLevels[6]) { statLevel = 7; }
-			if(statProgress <= LevelValues.DiggingLevels[8] && statProgress > LevelValues.DiggingLevels[7]) { statLevel = 8; }
-			if(statProgress <= LevelValues.DiggingLevels[9] && statProgress > LevelValues.DiggingLevels[8]) { statLevel = 9; }
-			if(statProgress <= LevelValues.DiggingLevels[10] && statProgress > LevelValues.DiggingLevels[9]) { statLevel = 10; }
-			if(statProgress <= LevelValues.DiggingLevels[11] && statProgress > LevelValues.DiggingLevels[10]) { statLevel = 11; }
-			if(statProgress >= LevelValues.DiggingLevels[12]) { statLevel = 12; }
+		if (keys.equalsIgnoreCase("DIGGING")){
+			if (statProgress <= plugin.lvlValues.DiggingLevels[0]) { statLevel = 0; }
+			if (statProgress <= plugin.lvlValues.DiggingLevels[1] && statProgress > plugin.lvlValues.DiggingLevels[0]) { statLevel = 1; }
+			if (statProgress <= plugin.lvlValues.DiggingLevels[2] && statProgress > plugin.lvlValues.DiggingLevels[1]) { statLevel = 2; }
+			if (statProgress <= plugin.lvlValues.DiggingLevels[3] && statProgress > plugin.lvlValues.DiggingLevels[2]) { statLevel = 3; }
+			if (statProgress <= plugin.lvlValues.DiggingLevels[4] && statProgress > plugin.lvlValues.DiggingLevels[3]) { statLevel = 4; }
+			if (statProgress <= plugin.lvlValues.DiggingLevels[5] && statProgress > plugin.lvlValues.DiggingLevels[4]) { statLevel = 5; }
+			if (statProgress <= plugin.lvlValues.DiggingLevels[6] && statProgress > plugin.lvlValues.DiggingLevels[5]) { statLevel = 6; }
+			if (statProgress <= plugin.lvlValues.DiggingLevels[7] && statProgress > plugin.lvlValues.DiggingLevels[6]) { statLevel = 7; }
+			if (statProgress <= plugin.lvlValues.DiggingLevels[8] && statProgress > plugin.lvlValues.DiggingLevels[7]) { statLevel = 8; }
+			if (statProgress <= plugin.lvlValues.DiggingLevels[9] && statProgress > plugin.lvlValues.DiggingLevels[8]) { statLevel = 9; }
+			if (statProgress <= plugin.lvlValues.DiggingLevels[10] && statProgress > plugin.lvlValues.DiggingLevels[9]) { statLevel = 10; }
+			if (statProgress <= plugin.lvlValues.DiggingLevels[11] && statProgress > plugin.lvlValues.DiggingLevels[10]) { statLevel = 11; }
+			if (statProgress >= plugin.lvlValues.DiggingLevels[12]) { statLevel = 12; }
 		}
 		
-		if(keys.equalsIgnoreCase("MINING")){
-			if(statProgress <= LevelValues.MiningLevels[0]) { statLevel = 0; }
-			if(statProgress <= LevelValues.MiningLevels[1] && statProgress > LevelValues.MiningLevels[0]) { statLevel = 1; }
-			if(statProgress <= LevelValues.MiningLevels[2] && statProgress > LevelValues.MiningLevels[1]) { statLevel = 2; }
-			if(statProgress <= LevelValues.MiningLevels[3] && statProgress > LevelValues.MiningLevels[2]) { statLevel = 3; }
-			if(statProgress <= LevelValues.MiningLevels[4] && statProgress > LevelValues.MiningLevels[3]) { statLevel = 4; }
-			if(statProgress <= LevelValues.MiningLevels[5] && statProgress > LevelValues.MiningLevels[4]) { statLevel = 5; }
-			if(statProgress <= LevelValues.MiningLevels[6] && statProgress > LevelValues.MiningLevels[5]) { statLevel = 6; }
-			if(statProgress <= LevelValues.MiningLevels[7] && statProgress > LevelValues.MiningLevels[6]) { statLevel = 7; }
-			if(statProgress <= LevelValues.MiningLevels[8] && statProgress > LevelValues.MiningLevels[7]) { statLevel = 8; }
-			if(statProgress <= LevelValues.MiningLevels[9] && statProgress > LevelValues.MiningLevels[8]) { statLevel = 9; }
-			if(statProgress <= LevelValues.MiningLevels[10] && statProgress > LevelValues.MiningLevels[9]) { statLevel = 10; }
-			if(statProgress <= LevelValues.MiningLevels[11] && statProgress > LevelValues.MiningLevels[10]) { statLevel = 11; }
-			if(statProgress >= LevelValues.MiningLevels[12]) { statLevel = 12; }
+		if (keys.equalsIgnoreCase("MINING")){
+			if (statProgress <= plugin.lvlValues.MiningLevels[0]) { statLevel = 0; }
+			if (statProgress <= plugin.lvlValues.MiningLevels[1] && statProgress > plugin.lvlValues.MiningLevels[0]) { statLevel = 1; }
+			if (statProgress <= plugin.lvlValues.MiningLevels[2] && statProgress > plugin.lvlValues.MiningLevels[1]) { statLevel = 2; }
+			if (statProgress <= plugin.lvlValues.MiningLevels[3] && statProgress > plugin.lvlValues.MiningLevels[2]) { statLevel = 3; }
+			if (statProgress <= plugin.lvlValues.MiningLevels[4] && statProgress > plugin.lvlValues.MiningLevels[3]) { statLevel = 4; }
+			if (statProgress <= plugin.lvlValues.MiningLevels[5] && statProgress > plugin.lvlValues.MiningLevels[4]) { statLevel = 5; }
+			if (statProgress <= plugin.lvlValues.MiningLevels[6] && statProgress > plugin.lvlValues.MiningLevels[5]) { statLevel = 6; }
+			if (statProgress <= plugin.lvlValues.MiningLevels[7] && statProgress > plugin.lvlValues.MiningLevels[6]) { statLevel = 7; }
+			if (statProgress <= plugin.lvlValues.MiningLevels[8] && statProgress > plugin.lvlValues.MiningLevels[7]) { statLevel = 8; }
+			if (statProgress <= plugin.lvlValues.MiningLevels[9] && statProgress > plugin.lvlValues.MiningLevels[8]) { statLevel = 9; }
+			if (statProgress <= plugin.lvlValues.MiningLevels[10] && statProgress > plugin.lvlValues.MiningLevels[9]) { statLevel = 10; }
+			if (statProgress <= plugin.lvlValues.MiningLevels[11] && statProgress > plugin.lvlValues.MiningLevels[10]) { statLevel = 11; }
+			if (statProgress >= plugin.lvlValues.MiningLevels[12]) { statLevel = 12; }
 		}
 		
-		if(keys.equalsIgnoreCase("FISHING")){
-			if(statProgress <= LevelValues.FishingLevels[0]) { statLevel = 0; }
-			if(statProgress <= LevelValues.FishingLevels[1] && statProgress > LevelValues.FishingLevels[0]) { statLevel = 1; }
-			if(statProgress <= LevelValues.FishingLevels[2] && statProgress > LevelValues.FishingLevels[1]) { statLevel = 2; }
-			if(statProgress <= LevelValues.FishingLevels[3] && statProgress > LevelValues.FishingLevels[2]) { statLevel = 3; }
-			if(statProgress <= LevelValues.FishingLevels[4] && statProgress > LevelValues.FishingLevels[3]) { statLevel = 4; }
-			if(statProgress <= LevelValues.FishingLevels[5] && statProgress > LevelValues.FishingLevels[4]) { statLevel = 5; }
-			if(statProgress <= LevelValues.FishingLevels[6] && statProgress > LevelValues.FishingLevels[5]) { statLevel = 6; }
-			if(statProgress <= LevelValues.FishingLevels[7] && statProgress > LevelValues.FishingLevels[6]) { statLevel = 7; }
-			if(statProgress <= LevelValues.FishingLevels[8] && statProgress > LevelValues.FishingLevels[7]) { statLevel = 8; }
-			if(statProgress <= LevelValues.FishingLevels[9] && statProgress > LevelValues.FishingLevels[8]) { statLevel = 9; }
-			if(statProgress <= LevelValues.FishingLevels[10] && statProgress > LevelValues.FishingLevels[9]) { statLevel = 10; }
-			if(statProgress <= LevelValues.FishingLevels[11] && statProgress > LevelValues.FishingLevels[10]) { statLevel = 11; }
-			if(statProgress >= LevelValues.FishingLevels[12]) { statLevel = 12; }
+		if (keys.equalsIgnoreCase("FISHING")){
+			if (statProgress <= plugin.lvlValues.FishingLevels[0]) { statLevel = 0; }
+			if (statProgress <= plugin.lvlValues.FishingLevels[1] && statProgress > plugin.lvlValues.FishingLevels[0]) { statLevel = 1; }
+			if (statProgress <= plugin.lvlValues.FishingLevels[2] && statProgress > plugin.lvlValues.FishingLevels[1]) { statLevel = 2; }
+			if (statProgress <= plugin.lvlValues.FishingLevels[3] && statProgress > plugin.lvlValues.FishingLevels[2]) { statLevel = 3; }
+			if (statProgress <= plugin.lvlValues.FishingLevels[4] && statProgress > plugin.lvlValues.FishingLevels[3]) { statLevel = 4; }
+			if (statProgress <= plugin.lvlValues.FishingLevels[5] && statProgress > plugin.lvlValues.FishingLevels[4]) { statLevel = 5; }
+			if (statProgress <= plugin.lvlValues.FishingLevels[6] && statProgress > plugin.lvlValues.FishingLevels[5]) { statLevel = 6; }
+			if (statProgress <= plugin.lvlValues.FishingLevels[7] && statProgress > plugin.lvlValues.FishingLevels[6]) { statLevel = 7; }
+			if (statProgress <= plugin.lvlValues.FishingLevels[8] && statProgress > plugin.lvlValues.FishingLevels[7]) { statLevel = 8; }
+			if (statProgress <= plugin.lvlValues.FishingLevels[9] && statProgress > plugin.lvlValues.FishingLevels[8]) { statLevel = 9; }
+			if (statProgress <= plugin.lvlValues.FishingLevels[10] && statProgress > plugin.lvlValues.FishingLevels[9]) { statLevel = 10; }
+			if (statProgress <= plugin.lvlValues.FishingLevels[11] && statProgress > plugin.lvlValues.FishingLevels[10]) { statLevel = 11; }
+			if (statProgress >= plugin.lvlValues.FishingLevels[12]) { statLevel = 12; }
 		}
 		
 		return statLevel;
 		
 	}
 	
-	public static Double getExpToGo(Double currentValue, int nextLevel){
-		if(nextLevel == 1) { return 8 - currentValue; }
-		if(nextLevel == 2) { return 15 - currentValue; }
-		if(nextLevel == 3) { return 40 - currentValue; }
-		if(nextLevel == 4) { return 70 - currentValue; }
-		if(nextLevel == 5) { return 100 - currentValue; }
-		if(nextLevel == 6) { return 130 - currentValue; }
-		if(nextLevel == 7) { return 165 - currentValue; }
-		if(nextLevel == 8) { return 200 - currentValue; }
-		if(nextLevel == 9) { return 240 - currentValue; }
-		if(nextLevel == 10) { return 285 - currentValue; }
-		if(nextLevel == 11) { return 335 - currentValue; }
+	public double getExpToGo(Double currentValue, int nextLevel){
+		if (nextLevel == 1) { return 8 - currentValue; }
+		if (nextLevel == 2) { return 15 - currentValue; }
+		if (nextLevel == 3) { return 40 - currentValue; }
+		if (nextLevel == 4) { return 70 - currentValue; }
+		if (nextLevel == 5) { return 100 - currentValue; }
+		if (nextLevel == 6) { return 130 - currentValue; }
+		if (nextLevel == 7) { return 165 - currentValue; }
+		if (nextLevel == 8) { return 200 - currentValue; }
+		if (nextLevel == 9) { return 240 - currentValue; }
+		if (nextLevel == 10) { return 285 - currentValue; }
+		if (nextLevel == 11) { return 335 - currentValue; }
 		return 0.00;
 	}
 	
-	public static double r2d(double d) {
+	public double r2d(double d) {
     	DecimalFormat twoDForm = new DecimalFormat("#.##");
     	return Double.valueOf(twoDForm.format(d));
 	}
