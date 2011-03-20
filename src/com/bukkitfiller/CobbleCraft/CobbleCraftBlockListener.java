@@ -21,14 +21,12 @@ public class CobbleCraftBlockListener extends BlockListener {
 		if(playersItem == Material.WOOD_PICKAXE || playersItem == Material.STONE_PICKAXE || playersItem == Material.IRON_PICKAXE || playersItem == Material.GOLD_PICKAXE || playersItem == Material.DIAMOND_PICKAXE){
 			
 		hitMiningBlock(block, playersItem, fileName);
-		player.sendMessage("Mining Level: " + ChatColor.GOLD +
-				CobbleCraftFileHandler.getLevel(fileName, "MINING"));
+		player.sendMessage("Mining Level: " + ChatColor.GOLD + CobbleCraftFileHandler.getLevel(fileName, "MINING"));
 		
 		}else if(playersItem == Material.WOOD_SPADE || playersItem == Material.STONE_SPADE || playersItem == Material.IRON_SPADE || playersItem == Material.GOLD_SPADE || playersItem == Material.DIAMOND_SPADE){
 			
 		hitDiggingBlock(block, playersItem, fileName);
-		player.sendMessage("Digging Level: " + ChatColor.GOLD +
-				CobbleCraftFileHandler.getLevel(fileName, "DIGGING"));
+		player.sendMessage("Digging Level: " + ChatColor.GOLD + CobbleCraftFileHandler.getLevel(fileName, "DIGGING"));
 		
 		}
 		
