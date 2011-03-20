@@ -9,7 +9,7 @@ import java.text.DecimalFormat;
 
 public class CobbleCraftFileHandler {
 	
-	public static void writeFile(String fileName){
+	public static void writePlayerFile(String fileName){
 		File file = new File(fileName);
 		if(!file.exists()){
 			try{
@@ -23,7 +23,7 @@ public class CobbleCraftFileHandler {
 			}catch(IOException ex){}
 		}
 	}
-	
+
 	public static void writeDir(String fileDir){
 		File file = new File(fileDir);
 		if(!file.exists()){
@@ -38,7 +38,7 @@ public class CobbleCraftFileHandler {
 		d = r2d(d);
 		String value = String.valueOf(d);
 		
-		if(!file.exists()) { writeFile(fileName); }
+		if(!file.exists()) { writePlayerFile(fileName); }
 		
 		
 		try {
@@ -75,7 +75,7 @@ public class CobbleCraftFileHandler {
 	public static Double getProperty(String fileName, String keys){
 		PropertyOrder props = new PropertyOrder();
 		File file = new File(fileName);
-		if(!file.exists()){ writeFile(fileName); }
+		if(!file.exists()){ writePlayerFile(fileName); }
 		
 		try {
 			props.load(new FileInputStream(file));
@@ -95,19 +95,53 @@ public class CobbleCraftFileHandler {
 		int statProgress = (int) Math.round(Double.parseDouble(props.getProperty(keys)));
 		int statLevel = 0;
 		
-		if(statProgress <= 3) { statLevel = 0; }
-		if(statProgress <= 8 && statProgress > 3) { statLevel = 1; }
-		if(statProgress <= 15 && statProgress > 8) { statLevel = 2; }
-		if(statProgress <= 40 && statProgress > 15) { statLevel = 3; }
-		if(statProgress <= 70 && statProgress > 40) { statLevel = 4; }
-		if(statProgress <= 100 && statProgress > 70) { statLevel = 5; }
-		if(statProgress <= 130 && statProgress > 100) { statLevel = 6; }
-		if(statProgress <= 165 && statProgress > 130) { statLevel = 7; }
-		if(statProgress <= 200 && statProgress > 165) { statLevel = 8; }
-		if(statProgress <= 240 && statProgress > 200) { statLevel = 9; }
-		if(statProgress <= 285 && statProgress > 240) { statLevel = 10; }
-		if(statProgress <= 335 && statProgress > 335) { statLevel = 11; }
-		if(statProgress >= 390) { statLevel = 12; }
+		if(keys.equalsIgnoreCase("DIGGING")){
+			if(statProgress <= 3) { statLevel = 0; }
+			if(statProgress <= 8 && statProgress > 3) { statLevel = 1; }
+			if(statProgress <= 15 && statProgress > 8) { statLevel = 2; }
+			if(statProgress <= 40 && statProgress > 15) { statLevel = 3; }
+			if(statProgress <= 70 && statProgress > 40) { statLevel = 4; }
+			if(statProgress <= 100 && statProgress > 70) { statLevel = 5; }
+			if(statProgress <= 130 && statProgress > 100) { statLevel = 6; }
+			if(statProgress <= 165 && statProgress > 130) { statLevel = 7; }
+			if(statProgress <= 200 && statProgress > 165) { statLevel = 8; }
+			if(statProgress <= 240 && statProgress > 200) { statLevel = 9; }
+			if(statProgress <= 285 && statProgress > 240) { statLevel = 10; }
+			if(statProgress <= 335 && statProgress > 335) { statLevel = 11; }
+			if(statProgress >= 390) { statLevel = 12; }
+		}
+		
+		if(keys.equalsIgnoreCase("MINING")){
+			if(statProgress <= 3) { statLevel = 0; }
+			if(statProgress <= 8 && statProgress > 3) { statLevel = 1; }
+			if(statProgress <= 15 && statProgress > 8) { statLevel = 2; }
+			if(statProgress <= 50 && statProgress > 15) { statLevel = 3; }
+			if(statProgress <= 66 && statProgress > 50) { statLevel = 4; }
+			if(statProgress <= 110 && statProgress > 66) { statLevel = 5; }
+			if(statProgress <= 170 && statProgress > 110) { statLevel = 6; }
+			if(statProgress <= 212 && statProgress > 170) { statLevel = 7; }
+			if(statProgress <= 260 && statProgress > 212) { statLevel = 8; }
+			if(statProgress <= 320 && statProgress > 260) { statLevel = 9; }
+			if(statProgress <= 370 && statProgress > 320) { statLevel = 10; }
+			if(statProgress <= 430 && statProgress > 370) { statLevel = 11; }
+			if(statProgress >= 480) { statLevel = 12; }
+		}
+		
+		if(keys.equalsIgnoreCase("FISHING")){
+			if(statProgress <= 3) { statLevel = 0; }
+			if(statProgress <= 5 && statProgress > 3) { statLevel = 1; }
+			if(statProgress <= 12 && statProgress > 8) { statLevel = 2; }
+			if(statProgress <= 17 && statProgress > 15) { statLevel = 3; }
+			if(statProgress <= 25 && statProgress > 40) { statLevel = 4; }
+			if(statProgress <= 35 && statProgress > 70) { statLevel = 5; }
+			if(statProgress <= 60 && statProgress > 100) { statLevel = 6; }
+			if(statProgress <= 90 && statProgress > 130) { statLevel = 7; }
+			if(statProgress <= 130 && statProgress > 165) { statLevel = 8; }
+			if(statProgress <= 190 && statProgress > 200) { statLevel = 9; }
+			if(statProgress <= 250 && statProgress > 240) { statLevel = 10; }
+			if(statProgress <= 320 && statProgress > 335) { statLevel = 11; }
+			if(statProgress >= 390) { statLevel = 12; }
+		}
 		
 		return statLevel;
 		
@@ -133,4 +167,5 @@ public class CobbleCraftFileHandler {
     	return Double.valueOf(twoDForm.format(d));
 	}
 
+	
 }

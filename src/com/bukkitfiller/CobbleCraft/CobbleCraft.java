@@ -23,6 +23,7 @@ public class CobbleCraft extends JavaPlugin {
 		pm.registerEvent(Event.Type.BLOCK_BREAK, this.blockListener, Priority.Normal, this);
 		pm.registerEvent(Event.Type.PLAYER_JOIN, this.playerListener, Priority.Normal, this);
 		pm.registerEvent(Event.Type.PLAYER_COMMAND_PREPROCESS, this.playerListener, Priority.Normal, this);
+		pm.registerEvent(Event.Type.PLAYER_PICKUP_ITEM, this.playerListener, Priority.Normal, this);
 		
 		System.out.println(desc.getName() + " - " + desc.getVersion() + " was enabled.");
 	}
