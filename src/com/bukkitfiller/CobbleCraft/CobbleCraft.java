@@ -12,7 +12,7 @@ public class CobbleCraft extends JavaPlugin {
 	
 	public static String FILEDIRECTORY;
 	protected Logger log = Logger.getLogger("Minecraft");
-	private PluginDescriptionFile desc = getDescription();
+	private PluginDescriptionFile desc;
 	private CobbleCraftBlockListener blockListener = new CobbleCraftBlockListener(this);
 	private CobbleCraftPlayerListener playerListener = new CobbleCraftPlayerListener(this);
 	private CobbleCraftCommandExecutor commandExecutor = new CobbleCraftCommandExecutor(this);
@@ -20,7 +20,7 @@ public class CobbleCraft extends JavaPlugin {
 	LevelValues lvlValues = new LevelValues(this);
 
 	public void onEnable() {
-		FILEDIRECTORY = this.getDataFolder().toString();
+		FILEDIRECTORY = "plugins/CobbleCraft/";
 		PluginManager pm = getServer().getPluginManager();
 		CobbleCraftFileHandler.writeDir(FILEDIRECTORY);
 		
@@ -32,7 +32,8 @@ public class CobbleCraft extends JavaPlugin {
 		pm.registerEvent(Event.Type.PLAYER_JOIN, this.playerListener, Priority.Normal, this);
 		pm.registerEvent(Event.Type.PLAYER_PICKUP_ITEM, this.playerListener, Priority.Normal, this);
 		
-		consoleInfo(desc.getVersion() + " was enabled.");
+		desc = getDescription();
+		System.out.println(desc.getName() + " was enabled.");
 	}
 
 	public void onDisable() {
