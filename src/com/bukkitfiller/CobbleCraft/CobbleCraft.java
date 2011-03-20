@@ -33,7 +33,7 @@ public class CobbleCraft extends JavaPlugin {
 		pm.registerEvent(Event.Type.PLAYER_PICKUP_ITEM, this.playerListener, Priority.Normal, this);
 		
 		desc = getDescription();
-		System.out.println(desc.getName() + " was enabled.");
+		consoleInfo(desc.getName() + " - " + desc.getVersion() + " was enabled.");
 	}
 
 	public void onDisable() {

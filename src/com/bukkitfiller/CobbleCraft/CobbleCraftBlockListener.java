@@ -24,18 +24,18 @@ public class CobbleCraftBlockListener extends BlockListener {
 		if (playersItem == Material.WOOD_PICKAXE || playersItem == Material.STONE_PICKAXE || playersItem == Material.IRON_PICKAXE || playersItem == Material.GOLD_PICKAXE || playersItem == Material.DIAMOND_PICKAXE){
 			
 		hitMiningBlock(player, block, playersItem, fileName);
+		plugin.lvlValues.CheckLevelUp(fileName, player, plugin.lvlValues.DiggingLevels, "Mining");
 		
 		}else if (playersItem == Material.WOOD_SPADE || playersItem == Material.STONE_SPADE || playersItem == Material.IRON_SPADE || playersItem == Material.GOLD_SPADE || playersItem == Material.DIAMOND_SPADE){
 			
 		hitDiggingBlock(player, block, playersItem, fileName);
+		plugin.lvlValues.CheckLevelUp(fileName, player, plugin.lvlValues.DiggingLevels, "Digging");
 		
 		}
 		
 	}
 	
 	public void hitMiningBlock(Player player, Block block, Material playersItem, String fileName){
-		
-		plugin.lvlValues.CheckLevelUp(fileName, player, plugin.lvlValues.MiningLevels, "Mining");
 		
 		if (block.getType() == Material.STONE){
 			if (playersItem == Material.WOOD_PICKAXE){
@@ -145,12 +145,9 @@ public class CobbleCraftBlockListener extends BlockListener {
 			}
 		}
 		
-		
 	}
 	
 	public void hitDiggingBlock(Player player, Block block, Material playersItem, String fileName){
-		
-		plugin.lvlValues.CheckLevelUp(fileName, player, plugin.lvlValues.DiggingLevels, "Digging");
 		
 		if (block.getType() == Material.DIRT){
 			if (playersItem == Material.WOOD_SPADE){
@@ -277,7 +274,6 @@ public class CobbleCraftBlockListener extends BlockListener {
 				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.39);
 			}
 		}
-		
 		
 	}
 	
