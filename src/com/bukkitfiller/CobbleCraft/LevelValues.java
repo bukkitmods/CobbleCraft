@@ -20,7 +20,7 @@ public class LevelValues {
 		
 		for (int i = 0; i < levels.length; i++){
 			if (playerExp.intValue() == levels[i]){
-				playerExp += 1;
+				plugin.fileHandler.editProperty(fileName, type.toUpperCase(), 1.01);
 				player.sendMessage(ChatColor.RED + "You have advanced a " +type+ " level!");
 				player.sendMessage("Your " +type+ " level is now: " + ChatColor.GOLD + (playerLevel + 1));
 			}
