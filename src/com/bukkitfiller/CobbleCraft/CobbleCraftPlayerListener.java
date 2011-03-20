@@ -25,7 +25,7 @@ public class CobbleCraftPlayerListener extends PlayerListener {
 		
 		if(item.equals(Material.RAW_FISH) && itemInHand.equals(Material.FISHING_ROD)){
 			LevelValues.CheckLevelUp(fileName, player, LevelValues.FishingLevels, "Fishing");
-			CobbleCraftFileHandler.editProperty(fileName, "FISHING", 0.7);
+			CobbleCraftFileHandler.editProperty(fileName, "FISHING", 1);
 		}
 		
 	}
