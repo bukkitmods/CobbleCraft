@@ -96,51 +96,51 @@ public class CobbleCraftFileHandler {
 		int statLevel = 0;
 		
 		if(keys.equalsIgnoreCase("DIGGING")){
-			if(statProgress <= 3) { statLevel = 0; }
-			if(statProgress <= 8 && statProgress > 3) { statLevel = 1; }
-			if(statProgress <= 15 && statProgress > 8) { statLevel = 2; }
-			if(statProgress <= 40 && statProgress > 15) { statLevel = 3; }
-			if(statProgress <= 70 && statProgress > 40) { statLevel = 4; }
-			if(statProgress <= 100 && statProgress > 70) { statLevel = 5; }
-			if(statProgress <= 130 && statProgress > 100) { statLevel = 6; }
-			if(statProgress <= 165 && statProgress > 130) { statLevel = 7; }
-			if(statProgress <= 200 && statProgress > 165) { statLevel = 8; }
-			if(statProgress <= 240 && statProgress > 200) { statLevel = 9; }
-			if(statProgress <= 285 && statProgress > 240) { statLevel = 10; }
-			if(statProgress <= 335 && statProgress > 335) { statLevel = 11; }
-			if(statProgress >= 390) { statLevel = 12; }
+			if(statProgress <= LevelValues.DiggingLevels[0]) { statLevel = 0; }
+			if(statProgress <= LevelValues.DiggingLevels[1] && statProgress > LevelValues.DiggingLevels[0]) { statLevel = 1; }
+			if(statProgress <= LevelValues.DiggingLevels[2] && statProgress > LevelValues.DiggingLevels[1]) { statLevel = 2; }
+			if(statProgress <= LevelValues.DiggingLevels[3] && statProgress > LevelValues.DiggingLevels[2]) { statLevel = 3; }
+			if(statProgress <= LevelValues.DiggingLevels[4] && statProgress > LevelValues.DiggingLevels[3]) { statLevel = 4; }
+			if(statProgress <= LevelValues.DiggingLevels[5] && statProgress > LevelValues.DiggingLevels[4]) { statLevel = 5; }
+			if(statProgress <= LevelValues.DiggingLevels[6] && statProgress > LevelValues.DiggingLevels[5]) { statLevel = 6; }
+			if(statProgress <= LevelValues.DiggingLevels[7] && statProgress > LevelValues.DiggingLevels[6]) { statLevel = 7; }
+			if(statProgress <= LevelValues.DiggingLevels[8] && statProgress > LevelValues.DiggingLevels[7]) { statLevel = 8; }
+			if(statProgress <= LevelValues.DiggingLevels[9] && statProgress > LevelValues.DiggingLevels[8]) { statLevel = 9; }
+			if(statProgress <= LevelValues.DiggingLevels[10] && statProgress > LevelValues.DiggingLevels[9]) { statLevel = 10; }
+			if(statProgress <= LevelValues.DiggingLevels[11] && statProgress > LevelValues.DiggingLevels[10]) { statLevel = 11; }
+			if(statProgress >= LevelValues.DiggingLevels[12]) { statLevel = 12; }
 		}
 		
 		if(keys.equalsIgnoreCase("MINING")){
-			if(statProgress <= 3) { statLevel = 0; }
-			if(statProgress <= 8 && statProgress > 3) { statLevel = 1; }
-			if(statProgress <= 15 && statProgress > 8) { statLevel = 2; }
-			if(statProgress <= 50 && statProgress > 15) { statLevel = 3; }
-			if(statProgress <= 66 && statProgress > 50) { statLevel = 4; }
-			if(statProgress <= 110 && statProgress > 66) { statLevel = 5; }
-			if(statProgress <= 170 && statProgress > 110) { statLevel = 6; }
-			if(statProgress <= 212 && statProgress > 170) { statLevel = 7; }
-			if(statProgress <= 260 && statProgress > 212) { statLevel = 8; }
-			if(statProgress <= 320 && statProgress > 260) { statLevel = 9; }
-			if(statProgress <= 370 && statProgress > 320) { statLevel = 10; }
-			if(statProgress <= 430 && statProgress > 370) { statLevel = 11; }
-			if(statProgress >= 480) { statLevel = 12; }
+			if(statProgress <= LevelValues.MiningLevels[0]) { statLevel = 0; }
+			if(statProgress <= LevelValues.MiningLevels[1] && statProgress > LevelValues.MiningLevels[0]) { statLevel = 1; }
+			if(statProgress <= LevelValues.MiningLevels[2] && statProgress > LevelValues.MiningLevels[1]) { statLevel = 2; }
+			if(statProgress <= LevelValues.MiningLevels[3] && statProgress > LevelValues.MiningLevels[2]) { statLevel = 3; }
+			if(statProgress <= LevelValues.MiningLevels[4] && statProgress > LevelValues.MiningLevels[3]) { statLevel = 4; }
+			if(statProgress <= LevelValues.MiningLevels[5] && statProgress > LevelValues.MiningLevels[4]) { statLevel = 5; }
+			if(statProgress <= LevelValues.MiningLevels[6] && statProgress > LevelValues.MiningLevels[5]) { statLevel = 6; }
+			if(statProgress <= LevelValues.MiningLevels[7] && statProgress > LevelValues.MiningLevels[6]) { statLevel = 7; }
+			if(statProgress <= LevelValues.MiningLevels[8] && statProgress > LevelValues.MiningLevels[7]) { statLevel = 8; }
+			if(statProgress <= LevelValues.MiningLevels[9] && statProgress > LevelValues.MiningLevels[8]) { statLevel = 9; }
+			if(statProgress <= LevelValues.MiningLevels[10] && statProgress > LevelValues.MiningLevels[9]) { statLevel = 10; }
+			if(statProgress <= LevelValues.MiningLevels[11] && statProgress > LevelValues.MiningLevels[10]) { statLevel = 11; }
+			if(statProgress >= LevelValues.MiningLevels[12]) { statLevel = 12; }
 		}
 		
 		if(keys.equalsIgnoreCase("FISHING")){
-			if(statProgress <= 3) { statLevel = 0; }
-			if(statProgress <= 5 && statProgress > 3) { statLevel = 1; }
-			if(statProgress <= 12 && statProgress > 8) { statLevel = 2; }
-			if(statProgress <= 17 && statProgress > 15) { statLevel = 3; }
-			if(statProgress <= 25 && statProgress > 40) { statLevel = 4; }
-			if(statProgress <= 35 && statProgress > 70) { statLevel = 5; }
-			if(statProgress <= 60 && statProgress > 100) { statLevel = 6; }
-			if(statProgress <= 90 && statProgress > 130) { statLevel = 7; }
-			if(statProgress <= 130 && statProgress > 165) { statLevel = 8; }
-			if(statProgress <= 190 && statProgress > 200) { statLevel = 9; }
-			if(statProgress <= 250 && statProgress > 240) { statLevel = 10; }
-			if(statProgress <= 320 && statProgress > 335) { statLevel = 11; }
-			if(statProgress >= 390) { statLevel = 12; }
+			if(statProgress <= LevelValues.FishingLevels[0]) { statLevel = 0; }
+			if(statProgress <= LevelValues.FishingLevels[1] && statProgress > LevelValues.FishingLevels[0]) { statLevel = 1; }
+			if(statProgress <= LevelValues.FishingLevels[2] && statProgress > LevelValues.FishingLevels[1]) { statLevel = 2; }
+			if(statProgress <= LevelValues.FishingLevels[3] && statProgress > LevelValues.FishingLevels[2]) { statLevel = 3; }
+			if(statProgress <= LevelValues.FishingLevels[4] && statProgress > LevelValues.FishingLevels[3]) { statLevel = 4; }
+			if(statProgress <= LevelValues.FishingLevels[5] && statProgress > LevelValues.FishingLevels[4]) { statLevel = 5; }
+			if(statProgress <= LevelValues.FishingLevels[6] && statProgress > LevelValues.FishingLevels[5]) { statLevel = 6; }
+			if(statProgress <= LevelValues.FishingLevels[7] && statProgress > LevelValues.FishingLevels[6]) { statLevel = 7; }
+			if(statProgress <= LevelValues.FishingLevels[8] && statProgress > LevelValues.FishingLevels[7]) { statLevel = 8; }
+			if(statProgress <= LevelValues.FishingLevels[9] && statProgress > LevelValues.FishingLevels[8]) { statLevel = 9; }
+			if(statProgress <= LevelValues.FishingLevels[10] && statProgress > LevelValues.FishingLevels[9]) { statLevel = 10; }
+			if(statProgress <= LevelValues.FishingLevels[11] && statProgress > LevelValues.FishingLevels[10]) { statLevel = 11; }
+			if(statProgress >= LevelValues.FishingLevels[12]) { statLevel = 12; }
 		}
 		
 		return statLevel;

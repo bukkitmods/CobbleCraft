@@ -19,17 +19,19 @@ public class CobbleCraftBlockListener extends BlockListener {
 		
 		if(playersItem == Material.WOOD_PICKAXE || playersItem == Material.STONE_PICKAXE || playersItem == Material.IRON_PICKAXE || playersItem == Material.GOLD_PICKAXE || playersItem == Material.DIAMOND_PICKAXE){
 			
-		hitMiningBlock(block, playersItem, fileName);
+		hitMiningBlock(player, block, playersItem, fileName);
 		
 		}else if(playersItem == Material.WOOD_SPADE || playersItem == Material.STONE_SPADE || playersItem == Material.IRON_SPADE || playersItem == Material.GOLD_SPADE || playersItem == Material.DIAMOND_SPADE){
 			
-		hitDiggingBlock(block, playersItem, fileName);
+		hitDiggingBlock(player, block, playersItem, fileName);
 		
 		}
 		
 	}
 	
-	public void hitMiningBlock(Block block, Material playersItem, String fileName){
+	public void hitMiningBlock(Player player, Block block, Material playersItem, String fileName){
+		
+		LevelValues.CheckLevelUp(fileName, player, LevelValues.MiningLevels, "Mining");
 		
 		if(block.getType() == Material.STONE){
 			if(playersItem == Material.WOOD_PICKAXE){
@@ -142,7 +144,9 @@ public class CobbleCraftBlockListener extends BlockListener {
 		
 	}
 	
-	public void hitDiggingBlock(Block block, Material playersItem, String fileName){
+	public void hitDiggingBlock(Player player, Block block, Material playersItem, String fileName){
+		
+		LevelValues.CheckLevelUp(fileName, player, LevelValues.DiggingLevels, "Digging");
 		
 		if(block.getType() == Material.DIRT){
 			if(playersItem == Material.WOOD_SPADE){

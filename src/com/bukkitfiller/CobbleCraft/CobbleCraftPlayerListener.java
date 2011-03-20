@@ -1,5 +1,6 @@
 package com.bukkitfiller.CobbleCraft;
 
+
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerEvent;
@@ -14,7 +15,7 @@ public class CobbleCraftPlayerListener extends PlayerListener {
 		String fileName = CobbleCraft.FILEDIRECTORY + player.getName() + ".stats";
 		CobbleCraftFileHandler.writePlayerFile(fileName);
 	}
-	
+
 	@Override
 	public void onPlayerPickupItem(PlayerPickupItemEvent event) {
 		Player player = event.getPlayer();
@@ -23,8 +24,10 @@ public class CobbleCraftPlayerListener extends PlayerListener {
 		String fileName = CobbleCraft.FILEDIRECTORY + event.getPlayer().getName() + ".stats";
 		
 		if(item.equals(Material.RAW_FISH) && itemInHand.equals(Material.FISHING_ROD) ){
+			LevelValues.CheckLevelUp(fileName, player, LevelValues.FishingLevels, "Fishing");
 			CobbleCraftFileHandler.editProperty(fileName, "FISHING", 0.7);
 		}
 		
 	}
+
 }
