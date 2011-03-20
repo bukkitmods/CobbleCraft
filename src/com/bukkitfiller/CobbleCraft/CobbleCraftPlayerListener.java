@@ -23,7 +23,7 @@ public class CobbleCraftPlayerListener extends PlayerListener {
 		Material item = event.getItem().getItemStack().getType();
 		String fileName = CobbleCraft.FILEDIRECTORY + event.getPlayer().getName() + ".stats";
 		
-		if(item.equals(Material.RAW_FISH) && itemInHand.equals(Material.FISHING_ROD) ){
+		if(item.equals(Material.RAW_FISH) && itemInHand.equals(Material.FISHING_ROD)){
 			LevelValues.CheckLevelUp(fileName, player, LevelValues.FishingLevels, "Fishing");
 			CobbleCraftFileHandler.editProperty(fileName, "FISHING", 0.7);
 		}
