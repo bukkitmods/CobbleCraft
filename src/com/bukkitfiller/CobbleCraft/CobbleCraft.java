@@ -27,6 +27,8 @@ public class CobbleCraft extends JavaPlugin {
 		getCommand("mining").setExecutor(commandExecutor);
 		getCommand("digging").setExecutor(commandExecutor);
 		getCommand("fishing").setExecutor(commandExecutor);
+		getCommand("slaying").setExecutor(commandExecutor);
+		getCommand("achievements").setExecutor(commandExecutor);
 		
 		pm.registerEvent(Event.Type.BLOCK_BREAK, this.blockListener, Priority.Normal, this);
 		pm.registerEvent(Event.Type.PLAYER_JOIN, this.playerListener, Priority.Normal, this);

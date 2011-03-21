@@ -28,9 +28,11 @@ public class CobbleCraftCommandExecutor implements CommandExecutor {
     	if (label.equalsIgnoreCase("mining")) {
     		showStats(player,plugin.lvlValues.MiningLevels,"Mining");
 		} else if (label.equalsIgnoreCase("digging")) {
-    		showStats(player,plugin.lvlValues.MiningLevels,"Digging");
+    		showStats(player,plugin.lvlValues.DiggingLevels,"Digging");
 		} else if (label.equalsIgnoreCase("fishing")) {
-    		showStats(player,plugin.lvlValues.MiningLevels,"Fishing");
+    		showStats(player,plugin.lvlValues.FishingLevels,"Fishing");
+		} else if (label.equalsIgnoreCase("slaying")) {
+    		showStats(player,plugin.lvlValues.SlayingLevels,"Slaying");
 		} else if (label.equalsIgnoreCase("achievements")) {
     		plugin.fileHandler.getAchievements(fileName, player);
 		}

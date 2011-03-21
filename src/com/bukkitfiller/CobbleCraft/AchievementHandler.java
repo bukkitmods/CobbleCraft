@@ -5,11 +5,11 @@ import org.bukkit.entity.Player;
 
 public class AchievementHandler {
 	
-	 @SuppressWarnings("unused")
+	@SuppressWarnings("unused")
 	private static String[] achievementList = {
 			"PIG PRODDER",
 			"IT'S HALLOWEEN?"
-	 };
+	};
 	
 	public static void showAchievements(Player player, String[] completed){
 		for(int i=0 ; i<completed.length; i++){
