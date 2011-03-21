@@ -29,7 +29,7 @@ public class CobbleCraftEntityListener extends EntityListener {
 			if (((EntityDamageByEntityEvent)event).getDamager() instanceof Player && event.getEntity() instanceof Monster) {
 				Monster monster = (Monster)event.getEntity();
 				if (monster.getHealth() <= event.getDamage()) {
-					runKill((Player)((EntityDamageByEntityEvent)event).getDamager(),monster);
+					runKill((Player)((EntityDamageByEntityEvent)event).getDamager(),monster,false);
 				}
 			}
 		}
@@ -37,14 +37,14 @@ public class CobbleCraftEntityListener extends EntityListener {
 			if (((EntityDamageByProjectileEvent)event).getDamager() instanceof Player && event.getEntity() instanceof Monster) {
 				Monster monster = (Monster)event.getEntity();
 				if (monster.getHealth() <= event.getDamage()) {
-					runKill((Player)((EntityDamageByEntityEvent)event).getDamager(),monster);
+					runKill((Player)((EntityDamageByEntityEvent)event).getDamager(),monster,true);
 				}
 			}
 		}
 		
 	}
 
-	private void runKill(Player player, Monster monster) {
+	private void runKill(Player player, Monster monster,boolean archery) {
 		if (monster instanceof Skeleton || 
 			monster instanceof Spider || 
 			monster instanceof Creeper || 
@@ -55,6 +55,21 @@ public class CobbleCraftEntityListener extends EntityListener {
 			monster instanceof Zombie) {
 			String fileName = plugin.FILEDIRECTORY + player.getName() + ".stats";
 			plugin.fileHandler.editNumProperty(fileName, "SLAYING", 1);
+			if (archery) {
+				plugin.fileHandler.editNumProperty(fileName, "ARCHERY", 1);
+			}
+		}
+		if (monster instanceof Sheep ||
+			monster instanceof Cow ||
+			monster instanceof Pig ||
+			monster instanceof Chicken ||
+			monster instanceof Squid) {
+			String fileName = plugin.FILEDIRECTORY + player.getName() + ".stats";
+			if (archery) {
+				plugin.fileHandler.editNumProperty(fileName, "ARCHERY", 1);
+			} else {
+				plugin.fileHandler.editNumProperty(fileName, "HUNTING", 1);
+			}
 		}
 	}
 	

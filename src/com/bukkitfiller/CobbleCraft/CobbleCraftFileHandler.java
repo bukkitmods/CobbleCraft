@@ -16,19 +16,36 @@ public class CobbleCraftFileHandler {
 		this.plugin = plugin;
 	}
 	
+	enum Types {
+		Mining ("MINING"),
+		Fishing ("FISHING"),
+		Slaying ("SLAYING"),
+		Archery ("ARCHERY"),
+		Digging ("DIGGING"),
+		Farming ("FARMING"),
+		Pigs_prodded ("PIGS_PRODDED"),
+		Worn_pumpkin ("WORN_PUMPKIN");
+		
+		private final String statsName;
+		Types(String statsName) {
+			this.statsName = statsName;
+		}
+		String get() { return statsName; }
+	};
+	
 	public void writePlayerFile(String fileName){
 		File file = new File(fileName);
 		if (!file.exists()){
 			try {
 				file.createNewFile();
-				writeNumProperty(fileName, "MINING", 0.00);
-				writeNumProperty(fileName, "FISHING", 0.00);
-				writeNumProperty(fileName, "SLAYING", 0.00);
-				writeNumProperty(fileName, "ARCHERY", 0.00);
-				writeNumProperty(fileName, "DIGGING", 0.00);
-				writeNumProperty(fileName, "FARMING", 0.00);
-				writeNumProperty(fileName, "PIGS_PRODDED", 0);
-				writeBoolProperty(fileName, "WORN_PUMPKIN", false);
+				writeNumProperty(fileName, Types.Mining.get(), 0.00);
+				writeNumProperty(fileName, Types.Fishing.get(), 0.00);
+				writeNumProperty(fileName, Types.Slaying.get(), 0.00);
+				writeNumProperty(fileName, Types.Archery.get(), 0.00);
+				writeNumProperty(fileName, Types.Digging.get(), 0.00);
+				writeNumProperty(fileName, Types.Fishing.get(), 0.00);
+				writeNumProperty(fileName, Types.Pigs_prodded.get(), 0);
+				writeBoolProperty(fileName, Types.Worn_pumpkin.get(), false);
 			} catch(IOException ex) {
 				plugin.consoleWarning(ex.toString());
 			}
@@ -42,9 +59,8 @@ public class CobbleCraftFileHandler {
 		}
 	}
 
-	public void writeNumProperty(String fileName, String keys, double d){
+	public void writeNumProperty(String fileName, String key, double d){
 		File file = new File(fileName);
-		String key = keys;
 		PropertyOrder props = new PropertyOrder();
 		d = r2d(d);
 		String value = String.valueOf(d);
@@ -56,7 +72,7 @@ public class CobbleCraftFileHandler {
 			props.load(new FileInputStream(file));} catch (FileNotFoundException e) {} catch (IOException e) {
 		}
 		
-		props.put(key, value);
+		props.put(key.toUpperCase(), value);
 		
 		try {
 			props.store(new FileOutputStream(file), null);
@@ -67,9 +83,8 @@ public class CobbleCraftFileHandler {
 		}
 	}
 	
-	public void writeBoolProperty(String fileName, String keys, boolean b){
+	public void writeBoolProperty(String fileName, String key, boolean b){
 		File file = new File(fileName);
-		String key = keys;
 		PropertyOrder props = new PropertyOrder();
 		String value = String.valueOf(b);
 		
@@ -79,7 +94,7 @@ public class CobbleCraftFileHandler {
 			props.load(new FileInputStream(file));} catch (FileNotFoundException e) {} catch (IOException e) {
 		}
 		
-		props.put(key, value);
+		props.put(key.toUpperCase(), value);
 		
 		try {
 			props.store(new FileOutputStream(file), null);
@@ -90,15 +105,14 @@ public class CobbleCraftFileHandler {
 		}
 	}
 	
-	public void editNumProperty(String fileName, String keys, double d){
+	public void editNumProperty(String fileName, String key, double d){
 		File file = new File(fileName);
 		PropertyOrder props = new PropertyOrder();
-		String key = keys;
 		d = r2d(d);
 		
 		try {
 			props.load(new FileInputStream(file));
-			Double currentValue = r2d(Double.parseDouble(props.getProperty(keys)));
+			Double currentValue = r2d(Double.parseDouble(props.getProperty(key.toUpperCase())));
 			Double totalValue = r2d(currentValue + d);
 			String value = String.valueOf(totalValue);
 			props.setProperty(key, value);
@@ -110,15 +124,14 @@ public class CobbleCraftFileHandler {
 		}
 	}
 
-	public void editBoolProperty(String fileName, String keys, boolean b){
+	public void editBoolProperty(String fileName, String key, boolean b){
 		File file = new File(fileName);
 		PropertyOrder props = new PropertyOrder();
-		String key = keys;
 		
 		try {
 			props.load(new FileInputStream(file));
 			String value = String.valueOf(b);
-			props.setProperty(key, value);
+			props.setProperty(key.toUpperCase(), value);
 			props.store(new FileOutputStream(file), null);
 		} catch (FileNotFoundException e) {
 			plugin.consoleWarning(e.toString());
@@ -127,7 +140,7 @@ public class CobbleCraftFileHandler {
 		}
 	}
 	
-	public double getNumProperty(String fileName, String keys){
+	public double getNumProperty(String fileName, String key){
 		PropertyOrder props = new PropertyOrder();
 		File file = new File(fileName);
 		if (!file.exists()){ writePlayerFile(fileName); }
@@ -139,11 +152,11 @@ public class CobbleCraftFileHandler {
 		} catch (IOException e) {
 			plugin.consoleWarning(e.toString());
 		}
-		Double value = r2d(Double.parseDouble(props.getProperty(keys)));
+		Double value = r2d(Double.parseDouble(props.getProperty(key.toUpperCase())));
 		return value;
 	}
 
-	public boolean getBoolProperty(String fileName, String keys){
+	public boolean getBoolProperty(String fileName, String key){
 		PropertyOrder props = new PropertyOrder();
 		File file = new File(fileName);
 		if (!file.exists()){ writePlayerFile(fileName); }
@@ -155,11 +168,11 @@ public class CobbleCraftFileHandler {
 		} catch (IOException e) {
 			plugin.consoleWarning(e.toString());
 		}
-		Boolean value = Boolean.getBoolean(props.getProperty(keys));
+		Boolean value = Boolean.getBoolean(props.getProperty(key.toUpperCase()));
 		return value;
 	}
 	
-	public int getLevel(String fileName, String keys){
+	public int getLevel(String fileName, String key){
 		File file = new File(fileName);
 		PropertyOrder props = new PropertyOrder();
 		try {
@@ -169,10 +182,10 @@ public class CobbleCraftFileHandler {
 		} catch (IOException e) {
 			plugin.consoleWarning(e.toString());
 		}
-		int statProgress = (int)Math.floor(Double.parseDouble(props.getProperty(keys)));
+		int statProgress = (int)Math.floor(Double.parseDouble(props.getProperty(key.toUpperCase())));
 		int statLevel = 0;
 		
-		if (keys.equalsIgnoreCase("DIGGING")){
+		if (key.equalsIgnoreCase("DIGGING")){
 			if (statProgress <= plugin.lvlValues.DiggingLevels[0]) { statLevel = 0; }
 			if (statProgress <= plugin.lvlValues.DiggingLevels[1] && statProgress > plugin.lvlValues.DiggingLevels[0]) { statLevel = 1; }
 			if (statProgress <= plugin.lvlValues.DiggingLevels[2] && statProgress > plugin.lvlValues.DiggingLevels[1]) { statLevel = 2; }
@@ -188,7 +201,7 @@ public class CobbleCraftFileHandler {
 			if (statProgress >= plugin.lvlValues.DiggingLevels[12]) { statLevel = 12; }
 		}
 		
-		if (keys.equalsIgnoreCase("MINING")){
+		if (key.equalsIgnoreCase("MINING")){
 			if (statProgress <= plugin.lvlValues.MiningLevels[0]) { statLevel = 0; }
 			if (statProgress <= plugin.lvlValues.MiningLevels[1] && statProgress > plugin.lvlValues.MiningLevels[0]) { statLevel = 1; }
 			if (statProgress <= plugin.lvlValues.MiningLevels[2] && statProgress > plugin.lvlValues.MiningLevels[1]) { statLevel = 2; }
@@ -204,7 +217,7 @@ public class CobbleCraftFileHandler {
 			if (statProgress >= plugin.lvlValues.MiningLevels[12]) { statLevel = 12; }
 		}
 		
-		if (keys.equalsIgnoreCase("FISHING")){
+		if (key.equalsIgnoreCase("FISHING")){
 			if (statProgress <= plugin.lvlValues.FishingLevels[0]) { statLevel = 0; }
 			if (statProgress <= plugin.lvlValues.FishingLevels[1] && statProgress > plugin.lvlValues.FishingLevels[0]) { statLevel = 1; }
 			if (statProgress <= plugin.lvlValues.FishingLevels[2] && statProgress > plugin.lvlValues.FishingLevels[1]) { statLevel = 2; }

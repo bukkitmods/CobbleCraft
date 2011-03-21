@@ -14,6 +14,7 @@ public class LevelValues {
 	public final int[] DiggingLevels = {3,8,15,40,70,100,130,165,200,240,285,335,390};
 	public final int[] FishingLevels = {3,5,12,17,25,35,60,80,112,147,179,222,270,320};
 	public final int[] SlayingLevels = {0};
+	public final int[] ArcheryLevels = {0};
 	
 	public void CheckLevelUp(String fileName, Player player, int[] levels, String type){
 		Double playerExp = plugin.fileHandler.getNumProperty(fileName, type.toUpperCase());
