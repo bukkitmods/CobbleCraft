@@ -1,9 +1,12 @@
 package com.bukkitfiller.CobbleCraft;
 
+import java.util.ArrayList;
+
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class AchievementHandler {
+	AchievementHandler() {}
 	
 	@SuppressWarnings("unused")
 	private static String[] achievementList = {
@@ -11,12 +14,13 @@ public class AchievementHandler {
 			"IT'S HALLOWEEN?"
 	};
 	
-	public static void showAchievements(Player player, String[] completed){
-		for(int i=0 ; i<completed.length; i++){
-				player.sendMessage(ChatColor.GREEN + completed[i]);
-		}
-		if(completed.length == 0){
+	public void showAchievements(Player player, ArrayList<String> completed){
+		if (completed.size() == 0) {
 			player.sendMessage("You have no achievements");
+		} else {
+			for (String achievement : completed) {
+				player.sendMessage(ChatColor.GREEN + achievement);
+			}
 		}
 	}
 	

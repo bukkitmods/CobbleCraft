@@ -19,6 +19,7 @@ public class CobbleCraft extends JavaPlugin {
 	private CobbleCraftEntityListener entityListener = new CobbleCraftEntityListener(this);
 	CobbleCraftFileHandler fileHandler = new CobbleCraftFileHandler(this);
 	LevelValues lvlValues = new LevelValues(this);
+	AchievementHandler achievementHandler = new AchievementHandler();
 
 	public void onEnable() {
 		PluginManager pm = getServer().getPluginManager();
@@ -33,10 +34,12 @@ public class CobbleCraft extends JavaPlugin {
 		pm.registerEvent(Event.Type.BLOCK_BREAK, this.blockListener, Priority.Normal, this);
 		pm.registerEvent(Event.Type.PLAYER_JOIN, this.playerListener, Priority.Normal, this);
 		pm.registerEvent(Event.Type.PLAYER_PICKUP_ITEM, this.playerListener, Priority.Normal, this);
+		pm.registerEvent(Event.Type.PLAYER_MOVE, this.playerListener, Priority.Normal, this);
+		pm.registerEvent(Event.Type.PLAYER_ITEM_HELD, this.playerListener, Priority.Normal, this);
 		pm.registerEvent(Event.Type.ENTITY_DAMAGED, this.entityListener, Priority.Normal, this);
 		
 		desc = getDescription();
-		consoleInfo(desc.getName() + " - " + desc.getVersion() + " was enabled.");
+		consoleInfo(desc.getVersion() + " was enabled.");
 	}
 
 	public void onDisable() {

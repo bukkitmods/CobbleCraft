@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
-
+import java.util.ArrayList;
 import org.bukkit.entity.Player;
 
 public class CobbleCraftFileHandler {
@@ -168,7 +168,7 @@ public class CobbleCraftFileHandler {
 		} catch (IOException e) {
 			plugin.consoleWarning(e.toString());
 		}
-		Boolean value = Boolean.getBoolean(props.getProperty(key.toUpperCase()));
+		boolean value = props.getProperty(key.toUpperCase()).equalsIgnoreCase("true");
 		return value;
 	}
 	
@@ -238,31 +238,23 @@ public class CobbleCraftFileHandler {
 	}
 	
 	public void getAchievements(String fileName, Player player){
-		String[] completed = new String [10];
+		ArrayList<String> completed = new ArrayList<String>();
 		
-		if(getNumProperty(fileName, "PIGS_PRODDED") >= 5){
-			completed[0] = "PIG PRODDER";
+		if (getNumProperty(fileName, "PIGS_PRODDED") >= 5){
+			completed.add("PIG PRODDER");
 		}
-		if(getBoolProperty(fileName, "WORN_PUMPKIN") == true){
-			completed[1] = "IT'S HALLOWEEN?";
+		if (getBoolProperty(fileName, "WORN_PUMPKIN") == true){
+			completed.add("IT'S HALLOWEEN?");
 		}
 		
-		AchievementHandler.showAchievements(player, completed);
+		plugin.achievementHandler.showAchievements(player, completed);
 	}
 	
 	public double getExpToGo(Double currentValue, int[] lvlArray, int nextLevel){
 		currentValue = r2d(currentValue);
-		if (nextLevel == 1) { return lvlArray[1] - currentValue; }
-		if (nextLevel == 2) { return lvlArray[2] - currentValue; }
-		if (nextLevel == 3) { return lvlArray[3] - currentValue; }
-		if (nextLevel == 4) { return lvlArray[4] - currentValue; }
-		if (nextLevel == 5) { return lvlArray[5] - currentValue; }
-		if (nextLevel == 6) { return lvlArray[6] - currentValue; }
-		if (nextLevel == 7) { return lvlArray[7] - currentValue; }
-		if (nextLevel == 8) { return lvlArray[8] - currentValue; }
-		if (nextLevel == 9) { return lvlArray[9] - currentValue; }
-		if (nextLevel == 10) { return lvlArray[10] - currentValue; }
-		if (nextLevel == 11) { return lvlArray[11] - currentValue; }
+		if (nextLevel <= 11) {
+			return lvlArray[nextLevel] - currentValue;
+		}
 		return 0.00;
 	}
 	
