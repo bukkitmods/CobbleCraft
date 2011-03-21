@@ -18,7 +18,7 @@ public class CobbleCraftBlockListener extends BlockListener {
 		Player player = event.getPlayer();
 		String playerName = player.getName();
 		Block block = event.getBlock();
-		String fileName = CobbleCraft.FILEDIRECTORY + playerName + ".stats";
+		String fileName = plugin.FILEDIRECTORY + playerName + ".stats";
 		Material playersItem = player.getItemInHand().getType();
 		
 		if (playersItem == Material.WOOD_PICKAXE || playersItem == Material.STONE_PICKAXE || playersItem == Material.IRON_PICKAXE || playersItem == Material.GOLD_PICKAXE || playersItem == Material.DIAMOND_PICKAXE){
@@ -37,111 +37,129 @@ public class CobbleCraftBlockListener extends BlockListener {
 	
 	public void hitMiningBlock(Player player, Block block, Material playersItem, String fileName){
 		
-		if (block.getType() == Material.STONE){
+		if (block.getType() == Material.COBBLESTONE){
 			if (playersItem == Material.WOOD_PICKAXE){
-				plugin.fileHandler.editProperty(fileName, "MINING", 0.2);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.1);
 			}
 			if (playersItem == Material.STONE_PICKAXE){
-				plugin.fileHandler.editProperty(fileName, "MINING", 0.3);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.2);
 			}
 			if (playersItem == Material.IRON_PICKAXE){
-				plugin.fileHandler.editProperty(fileName, "MINING", 0.4);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.3);
 			}
 			if (playersItem == Material.GOLD_PICKAXE){
-				plugin.fileHandler.editProperty(fileName, "MINING", 0.5);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.4);
 			}
 			if (playersItem == Material.DIAMOND_PICKAXE){
-				plugin.fileHandler.editProperty(fileName, "MINING", 0.6);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.5);
+			}
+		}
+		
+		if (block.getType() == Material.STONE){
+			if (playersItem == Material.WOOD_PICKAXE){
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.2);
+			}
+			if (playersItem == Material.STONE_PICKAXE){
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.3);
+			}
+			if (playersItem == Material.IRON_PICKAXE){
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.4);
+			}
+			if (playersItem == Material.GOLD_PICKAXE){
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.5);
+			}
+			if (playersItem == Material.DIAMOND_PICKAXE){
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.6);
 			}
 		}
 		
 		if (block.getType() == Material.COAL_ORE){
 			if (playersItem == Material.WOOD_PICKAXE){
-				plugin.fileHandler.editProperty(fileName, "MINING", 0.28);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.28);
 			}
 			if (playersItem == Material.STONE_PICKAXE){
-				plugin.fileHandler.editProperty(fileName, "MINING", 0.38);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.38);
 			}
 			if (playersItem == Material.IRON_PICKAXE){
-				plugin.fileHandler.editProperty(fileName, "MINING", 0.48);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.48);
 			}
 			if (playersItem == Material.GOLD_PICKAXE){
-				plugin.fileHandler.editProperty(fileName, "MINING", 0.58);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.58);
 			}
 			if (playersItem == Material.DIAMOND_PICKAXE){
-				plugin.fileHandler.editProperty(fileName, "MINING", 0.68);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.68);
 			}
 		}
 		
 		if (block.getType() == Material.IRON_ORE){
 			if (playersItem == Material.WOOD_PICKAXE){
-				plugin.fileHandler.editProperty(fileName, "MINING", 0.34);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.34);
 			}
 			if (playersItem == Material.STONE_PICKAXE){
-				plugin.fileHandler.editProperty(fileName, "MINING", 0.44);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.44);
 			}
 			if (playersItem == Material.IRON_PICKAXE){
-				plugin.fileHandler.editProperty(fileName, "MINING", 0.54);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.54);
 			}
 			if (playersItem == Material.GOLD_PICKAXE){
-				plugin.fileHandler.editProperty(fileName, "MINING", 0.64);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.64);
 			}
 			if (playersItem == Material.DIAMOND_PICKAXE){
-				plugin.fileHandler.editProperty(fileName, "MINING", 0.74);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.74);
 			}
 		}
 		
 		if (block.getType() == Material.GOLD_ORE){
 			if (playersItem == Material.WOOD_PICKAXE){
-				plugin.fileHandler.editProperty(fileName, "MINING", 0.39);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.39);
 			}
 			if (playersItem == Material.STONE_PICKAXE){
-				plugin.fileHandler.editProperty(fileName, "MINING", 0.49);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.49);
 			}
 			if (playersItem == Material.IRON_PICKAXE){
-				plugin.fileHandler.editProperty(fileName, "MINING", 0.59);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.59);
 			}
 			if (playersItem == Material.GOLD_PICKAXE){
-				plugin.fileHandler.editProperty(fileName, "MINING", 0.69);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.69);
 			}
 			if (playersItem == Material.DIAMOND_PICKAXE){
-				plugin.fileHandler.editProperty(fileName, "MINING", 0.79);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.79);
 			}
 		}
 		
 		if (block.getType() == Material.REDSTONE_ORE){
 			if (playersItem == Material.WOOD_PICKAXE){
-				plugin.fileHandler.editProperty(fileName, "MINING", 0.52);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.52);
 			}
 			if (playersItem == Material.STONE_PICKAXE){
-				plugin.fileHandler.editProperty(fileName, "MINING", 0.62);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.62);
 			}
 			if (playersItem == Material.IRON_PICKAXE){
-				plugin.fileHandler.editProperty(fileName, "MINING", 0.72);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.72);
 			}
 			if (playersItem == Material.GOLD_PICKAXE){
-				plugin.fileHandler.editProperty(fileName, "MINING", 0.82);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.82);
 			}
 			if (playersItem == Material.DIAMOND_PICKAXE){
-				plugin.fileHandler.editProperty(fileName, "MINING", 0.92);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.92);
 			}
 		}
 		
 		if (block.getType() == Material.DIAMOND_ORE){
 			if (playersItem == Material.WOOD_PICKAXE){
-				plugin.fileHandler.editProperty(fileName, "MINING", 0.60);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.60);
 			}
 			if (playersItem == Material.STONE_PICKAXE){
-				plugin.fileHandler.editProperty(fileName, "MINING", 0.70);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.70);
 			}
 			if (playersItem == Material.IRON_PICKAXE){
-				plugin.fileHandler.editProperty(fileName, "MINING", 0.80);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.80);
 			}
 			if (playersItem == Material.GOLD_PICKAXE){
-				plugin.fileHandler.editProperty(fileName, "MINING", 0.90);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.90);
 			}
 			if (playersItem == Material.DIAMOND_PICKAXE){
-				plugin.fileHandler.editProperty(fileName, "MINING", 1.00);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 1.00);
 			}
 		}
 		
@@ -151,127 +169,127 @@ public class CobbleCraftBlockListener extends BlockListener {
 		
 		if (block.getType() == Material.DIRT){
 			if (playersItem == Material.WOOD_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.10);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.10);
 			}
 			if (playersItem == Material.STONE_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.15);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.15);
 			}
 			if (playersItem == Material.IRON_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.20);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.20);
 			}
 			if (playersItem == Material.GOLD_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.25);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.25);
 			}
 			if (playersItem == Material.DIAMOND_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.30);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.30);
 			}
 		}
 		
 		if (block.getType() == Material.GRASS){
 			if (playersItem == Material.WOOD_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.10);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.10);
 			}
 			if (playersItem == Material.STONE_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.15);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.15);
 			}
 			if (playersItem == Material.IRON_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.20);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.20);
 			}
 			if (playersItem == Material.GOLD_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.25);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.25);
 			}
 			if (playersItem == Material.DIAMOND_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.30);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.30);
 			}
 		}
 		
 		if (block.getType() == Material.SAND){
 			if (playersItem == Material.WOOD_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.12);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.12);
 			}
 			if (playersItem == Material.STONE_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.17);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.17);
 			}
 			if (playersItem == Material.IRON_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.22);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.22);
 			}
 			if (playersItem == Material.GOLD_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.27);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.27);
 			}
 			if (playersItem == Material.DIAMOND_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.32);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.32);
 			}
 		}
 		
 		if (block.getType() == Material.GRAVEL){
 			if (playersItem == Material.WOOD_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.17);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.17);
 			}
 			if (playersItem == Material.STONE_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.22);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.22);
 			}
 			if (playersItem == Material.IRON_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.27);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.27);
 			}
 			if (playersItem == Material.GOLD_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.32);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.32);
 			}
 			if (playersItem == Material.DIAMOND_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.37);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.37);
 			}
 		}
 		
 		if (block.getType() == Material.CLAY){
 			if (playersItem == Material.WOOD_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.24);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.24);
 			}
 			if (playersItem == Material.STONE_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.29);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.29);
 			}
 			if (playersItem == Material.IRON_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.34);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.34);
 			}
 			if (playersItem == Material.GOLD_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.39);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.39);
 			}
 			if (playersItem == Material.DIAMOND_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.44);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.44);
 			}
 		}
 		
 		if (block.getType() == Material.GLOWSTONE){
 			if (playersItem == Material.WOOD_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.17);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.17);
 			}
 			if (playersItem == Material.STONE_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.22);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.22);
 			}
 			if (playersItem == Material.IRON_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.27);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.27);
 			}
 			if (playersItem == Material.GOLD_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.32);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.32);
 			}
 			if (playersItem == Material.DIAMOND_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.37);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.37);
 			}
 		}
 		
 		if (block.getType() == Material.NETHERRACK){
 			if (playersItem == Material.WOOD_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.19);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.19);
 			}
 			if (playersItem == Material.STONE_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.24);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.24);
 			}
 			if (playersItem == Material.IRON_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.29);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.29);
 			}
 			if (playersItem == Material.GOLD_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.34);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.34);
 			}
 			if (playersItem == Material.DIAMOND_SPADE){
-				plugin.fileHandler.editProperty(fileName, "DIGGING", 0.39);
+				plugin.fileHandler.editNumProperty(fileName, "DIGGING", 0.39);
 			}
 		}
 		

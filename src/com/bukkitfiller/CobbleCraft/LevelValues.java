@@ -15,12 +15,12 @@ public class LevelValues {
 	public final int[] FishingLevels = {3,5,12,17,25,35,60,80,112,147,179,222,270,320};
 	
 	public void CheckLevelUp(String fileName, Player player, int[] levels, String type){
-		Double playerExp = plugin.fileHandler.getProperty(fileName, type.toUpperCase());
+		Double playerExp = plugin.fileHandler.getNumProperty(fileName, type.toUpperCase());
 		int playerLevel = plugin.fileHandler.getLevel(fileName, type.toUpperCase());
 		
 		for (int i = 0; i < levels.length; i++){
-			if (playerExp.intValue() == levels[i]){
-				plugin.fileHandler.editProperty(fileName, type.toUpperCase(), 1.01);
+			if (Math.floor(playerExp) == levels[i]){
+				plugin.fileHandler.editNumProperty(fileName, type.toUpperCase(), 1.01);
 				player.sendMessage(ChatColor.RED + "You have advanced a " +type+ " level!");
 				player.sendMessage("Your " +type+ " level is now: " + ChatColor.GOLD + (playerLevel + 1));
 			}

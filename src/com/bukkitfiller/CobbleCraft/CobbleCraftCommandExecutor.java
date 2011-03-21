@@ -13,23 +13,26 @@ public class CobbleCraftCommandExecutor implements CommandExecutor {
 		this.plugin = plugin;
 	}
 	
-	private void showStats(Player player,String type) {
-	    String fileName = CobbleCraft.FILEDIRECTORY + player.getName() + ".stats";
+	private void showStats(Player player, int[] levelArray, String type) {
+	    String fileName = plugin.FILEDIRECTORY + player.getName() + ".stats";
 		
 		int playerLevel = plugin.fileHandler.getLevel(fileName, type.toUpperCase());
-		double playerExp = plugin.fileHandler.getProperty(fileName, type.toUpperCase());
+		double playerExp = plugin.fileHandler.getNumProperty(fileName, type.toUpperCase());
 		player.sendMessage("Current '" + type + "' level: " + ChatColor.GOLD + playerLevel);
-		player.sendMessage("Exp left to next level: " + ChatColor.GOLD + plugin.fileHandler.getExpToGo(playerExp, playerLevel + 1));
+		player.sendMessage("Exp left to next level: " + ChatColor.GOLD + plugin.fileHandler.getExpToGo(playerExp, levelArray, playerLevel + 1));
 	}
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
     	Player player = (Player)sender;
+    	String fileName = plugin.FILEDIRECTORY + player.getName() + ".stats";
     	if (label.equalsIgnoreCase("mining")) {
-    		showStats(player,"Mining");
+    		showStats(player,plugin.lvlValues.MiningLevels,"Mining");
 		} else if (label.equalsIgnoreCase("digging")) {
-    		showStats(player,"Digging");
+    		showStats(player,plugin.lvlValues.MiningLevels,"Digging");
 		} else if (label.equalsIgnoreCase("fishing")) {
-    		showStats(player,"Fishing");
+    		showStats(player,plugin.lvlValues.MiningLevels,"Fishing");
+		} else if (label.equalsIgnoreCase("achievements")) {
+    		plugin.fileHandler.getAchievements(fileName, player);
 		}
 		return false;
     }

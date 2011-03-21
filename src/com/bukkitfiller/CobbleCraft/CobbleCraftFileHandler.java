@@ -7,6 +7,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
 
+import org.bukkit.entity.Player;
+
 public class CobbleCraftFileHandler {
 	private CobbleCraft plugin;	
 	
@@ -19,12 +21,14 @@ public class CobbleCraftFileHandler {
 		if (!file.exists()){
 			try {
 				file.createNewFile();
-				writeProperty(fileName, "MINING", 0.00);
-				writeProperty(fileName, "FISHING", 0.00);
-				writeProperty(fileName, "SLAYING", 0.00);
-				writeProperty(fileName, "ARCHERY", 0.00);
-				writeProperty(fileName, "DIGGING", 0.00);
-				writeProperty(fileName, "FARMING", 0.00);
+				writeNumProperty(fileName, "MINING", 0.00);
+				writeNumProperty(fileName, "FISHING", 0.00);
+				writeNumProperty(fileName, "SLAYING", 0.00);
+				writeNumProperty(fileName, "ARCHERY", 0.00);
+				writeNumProperty(fileName, "DIGGING", 0.00);
+				writeNumProperty(fileName, "FARMING", 0.00);
+				writeNumProperty(fileName, "PIGS_PRODDED", 0);
+				writeBoolProperty(fileName, "WORN_PUMPKIN", false);
 			} catch(IOException ex) {
 				plugin.consoleWarning(ex.toString());
 			}
@@ -37,8 +41,8 @@ public class CobbleCraftFileHandler {
 			file.mkdir();
 		}
 	}
-	
-	public void writeProperty(String fileName, String keys, double d){
+
+	public void writeNumProperty(String fileName, String keys, double d){
 		File file = new File(fileName);
 		String key = keys;
 		PropertyOrder props = new PropertyOrder();
@@ -63,7 +67,30 @@ public class CobbleCraftFileHandler {
 		}
 	}
 	
-	public void editProperty(String fileName, String keys, double d){
+	public void writeBoolProperty(String fileName, String keys, boolean b){
+		File file = new File(fileName);
+		String key = keys;
+		PropertyOrder props = new PropertyOrder();
+		String value = String.valueOf(b);
+		
+		if (!file.exists()) { writePlayerFile(fileName); }
+		
+		try {
+			props.load(new FileInputStream(file));} catch (FileNotFoundException e) {} catch (IOException e) {
+		}
+		
+		props.put(key, value);
+		
+		try {
+			props.store(new FileOutputStream(file), null);
+		} catch (FileNotFoundException e) {
+			plugin.consoleWarning(e.toString());
+		} catch (IOException e) {
+			plugin.consoleWarning(e.toString());
+		}
+	}
+	
+	public void editNumProperty(String fileName, String keys, double d){
 		File file = new File(fileName);
 		PropertyOrder props = new PropertyOrder();
 		String key = keys;
@@ -83,7 +110,24 @@ public class CobbleCraftFileHandler {
 		}
 	}
 
-	public double getProperty(String fileName, String keys){
+	public void editBoolProperty(String fileName, String keys, boolean b){
+		File file = new File(fileName);
+		PropertyOrder props = new PropertyOrder();
+		String key = keys;
+		
+		try {
+			props.load(new FileInputStream(file));
+			String value = String.valueOf(b);
+			props.setProperty(key, value);
+			props.store(new FileOutputStream(file), null);
+		} catch (FileNotFoundException e) {
+			plugin.consoleWarning(e.toString());
+		} catch (IOException e) {
+			plugin.consoleWarning(e.toString());
+		}
+	}
+	
+	public double getNumProperty(String fileName, String keys){
 		PropertyOrder props = new PropertyOrder();
 		File file = new File(fileName);
 		if (!file.exists()){ writePlayerFile(fileName); }
@@ -99,6 +143,22 @@ public class CobbleCraftFileHandler {
 		return value;
 	}
 
+	public boolean getBoolProperty(String fileName, String keys){
+		PropertyOrder props = new PropertyOrder();
+		File file = new File(fileName);
+		if (!file.exists()){ writePlayerFile(fileName); }
+		
+		try {
+			props.load(new FileInputStream(file));
+		} catch (FileNotFoundException e) {
+			plugin.consoleWarning(e.toString());
+		} catch (IOException e) {
+			plugin.consoleWarning(e.toString());
+		}
+		Boolean value = Boolean.getBoolean(props.getProperty(keys));
+		return value;
+	}
+	
 	public int getLevel(String fileName, String keys){
 		File file = new File(fileName);
 		PropertyOrder props = new PropertyOrder();
@@ -164,18 +224,32 @@ public class CobbleCraftFileHandler {
 		
 	}
 	
-	public double getExpToGo(Double currentValue, int nextLevel){
-		if (nextLevel == 1) { return 8 - currentValue; }
-		if (nextLevel == 2) { return 15 - currentValue; }
-		if (nextLevel == 3) { return 40 - currentValue; }
-		if (nextLevel == 4) { return 70 - currentValue; }
-		if (nextLevel == 5) { return 100 - currentValue; }
-		if (nextLevel == 6) { return 130 - currentValue; }
-		if (nextLevel == 7) { return 165 - currentValue; }
-		if (nextLevel == 8) { return 200 - currentValue; }
-		if (nextLevel == 9) { return 240 - currentValue; }
-		if (nextLevel == 10) { return 285 - currentValue; }
-		if (nextLevel == 11) { return 335 - currentValue; }
+	public void getAchievements(String fileName, Player player){
+		String[] completed = new String [10];
+		
+		if(getNumProperty(fileName, "PIGS_PRODDED") >= 5){
+			completed[0] = "PIG PRODDER";
+		}
+		if(getBoolProperty(fileName, "WORN_PUMPKIN") == true){
+			completed[1] = "IT'S HALLOWEEN?";
+		}
+		
+		AchievementHandler.showAchievements(player, completed);
+	}
+	
+	public double getExpToGo(Double currentValue, int[] lvlArray, int nextLevel){
+		currentValue = r2d(currentValue);
+		if (nextLevel == 1) { return lvlArray[1] - currentValue; }
+		if (nextLevel == 2) { return lvlArray[2] - currentValue; }
+		if (nextLevel == 3) { return lvlArray[3] - currentValue; }
+		if (nextLevel == 4) { return lvlArray[4] - currentValue; }
+		if (nextLevel == 5) { return lvlArray[5] - currentValue; }
+		if (nextLevel == 6) { return lvlArray[6] - currentValue; }
+		if (nextLevel == 7) { return lvlArray[7] - currentValue; }
+		if (nextLevel == 8) { return lvlArray[8] - currentValue; }
+		if (nextLevel == 9) { return lvlArray[9] - currentValue; }
+		if (nextLevel == 10) { return lvlArray[10] - currentValue; }
+		if (nextLevel == 11) { return lvlArray[11] - currentValue; }
 		return 0.00;
 	}
 	
