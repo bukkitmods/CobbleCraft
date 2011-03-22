@@ -28,7 +28,6 @@ public class CobbleCraftFileHandler {
 		Worn_pumpkin ("WORN_PUMPKIN"),
 		Bling_Bling ("DIAMOND_COLLECTED");
 		
-		
 		private final String statsName;
 		Types(String statsName) {
 			this.statsName = statsName;
@@ -191,49 +190,25 @@ public class CobbleCraftFileHandler {
 		
 		if (key.equalsIgnoreCase("DIGGING")){
 			if (statProgress <= plugin.lvlValues.DiggingLevels[0]) { statLevel = 0; }
-			if (statProgress <= plugin.lvlValues.DiggingLevels[1] && statProgress > plugin.lvlValues.DiggingLevels[0]) { statLevel = 1; }
-			if (statProgress <= plugin.lvlValues.DiggingLevels[2] && statProgress > plugin.lvlValues.DiggingLevels[1]) { statLevel = 2; }
-			if (statProgress <= plugin.lvlValues.DiggingLevels[3] && statProgress > plugin.lvlValues.DiggingLevels[2]) { statLevel = 3; }
-			if (statProgress <= plugin.lvlValues.DiggingLevels[4] && statProgress > plugin.lvlValues.DiggingLevels[3]) { statLevel = 4; }
-			if (statProgress <= plugin.lvlValues.DiggingLevels[5] && statProgress > plugin.lvlValues.DiggingLevels[4]) { statLevel = 5; }
-			if (statProgress <= plugin.lvlValues.DiggingLevels[6] && statProgress > plugin.lvlValues.DiggingLevels[5]) { statLevel = 6; }
-			if (statProgress <= plugin.lvlValues.DiggingLevels[7] && statProgress > plugin.lvlValues.DiggingLevels[6]) { statLevel = 7; }
-			if (statProgress <= plugin.lvlValues.DiggingLevels[8] && statProgress > plugin.lvlValues.DiggingLevels[7]) { statLevel = 8; }
-			if (statProgress <= plugin.lvlValues.DiggingLevels[9] && statProgress > plugin.lvlValues.DiggingLevels[8]) { statLevel = 9; }
-			if (statProgress <= plugin.lvlValues.DiggingLevels[10] && statProgress > plugin.lvlValues.DiggingLevels[9]) { statLevel = 10; }
-			if (statProgress <= plugin.lvlValues.DiggingLevels[11] && statProgress > plugin.lvlValues.DiggingLevels[10]) { statLevel = 11; }
+			for (int i=1;i<12;i++) {
+				if (statProgress <= plugin.lvlValues.DiggingLevels[i] && statProgress > plugin.lvlValues.DiggingLevels[i-1]) { statLevel = i; }
+			}
 			if (statProgress >= plugin.lvlValues.DiggingLevels[12]) { statLevel = 12; }
 		}
 		
 		if (key.equalsIgnoreCase("MINING")){
 			if (statProgress <= plugin.lvlValues.MiningLevels[0]) { statLevel = 0; }
-			if (statProgress <= plugin.lvlValues.MiningLevels[1] && statProgress > plugin.lvlValues.MiningLevels[0]) { statLevel = 1; }
-			if (statProgress <= plugin.lvlValues.MiningLevels[2] && statProgress > plugin.lvlValues.MiningLevels[1]) { statLevel = 2; }
-			if (statProgress <= plugin.lvlValues.MiningLevels[3] && statProgress > plugin.lvlValues.MiningLevels[2]) { statLevel = 3; }
-			if (statProgress <= plugin.lvlValues.MiningLevels[4] && statProgress > plugin.lvlValues.MiningLevels[3]) { statLevel = 4; }
-			if (statProgress <= plugin.lvlValues.MiningLevels[5] && statProgress > plugin.lvlValues.MiningLevels[4]) { statLevel = 5; }
-			if (statProgress <= plugin.lvlValues.MiningLevels[6] && statProgress > plugin.lvlValues.MiningLevels[5]) { statLevel = 6; }
-			if (statProgress <= plugin.lvlValues.MiningLevels[7] && statProgress > plugin.lvlValues.MiningLevels[6]) { statLevel = 7; }
-			if (statProgress <= plugin.lvlValues.MiningLevels[8] && statProgress > plugin.lvlValues.MiningLevels[7]) { statLevel = 8; }
-			if (statProgress <= plugin.lvlValues.MiningLevels[9] && statProgress > plugin.lvlValues.MiningLevels[8]) { statLevel = 9; }
-			if (statProgress <= plugin.lvlValues.MiningLevels[10] && statProgress > plugin.lvlValues.MiningLevels[9]) { statLevel = 10; }
-			if (statProgress <= plugin.lvlValues.MiningLevels[11] && statProgress > plugin.lvlValues.MiningLevels[10]) { statLevel = 11; }
+			for (int i=1;i<12;i++) {
+				if (statProgress <= plugin.lvlValues.MiningLevels[i] && statProgress > plugin.lvlValues.MiningLevels[i-1]) { statLevel = i; }
+			}
 			if (statProgress >= plugin.lvlValues.MiningLevels[12]) { statLevel = 12; }
 		}
 		
 		if (key.equalsIgnoreCase("FISHING")){
 			if (statProgress <= plugin.lvlValues.FishingLevels[0]) { statLevel = 0; }
-			if (statProgress <= plugin.lvlValues.FishingLevels[1] && statProgress > plugin.lvlValues.FishingLevels[0]) { statLevel = 1; }
-			if (statProgress <= plugin.lvlValues.FishingLevels[2] && statProgress > plugin.lvlValues.FishingLevels[1]) { statLevel = 2; }
-			if (statProgress <= plugin.lvlValues.FishingLevels[3] && statProgress > plugin.lvlValues.FishingLevels[2]) { statLevel = 3; }
-			if (statProgress <= plugin.lvlValues.FishingLevels[4] && statProgress > plugin.lvlValues.FishingLevels[3]) { statLevel = 4; }
-			if (statProgress <= plugin.lvlValues.FishingLevels[5] && statProgress > plugin.lvlValues.FishingLevels[4]) { statLevel = 5; }
-			if (statProgress <= plugin.lvlValues.FishingLevels[6] && statProgress > plugin.lvlValues.FishingLevels[5]) { statLevel = 6; }
-			if (statProgress <= plugin.lvlValues.FishingLevels[7] && statProgress > plugin.lvlValues.FishingLevels[6]) { statLevel = 7; }
-			if (statProgress <= plugin.lvlValues.FishingLevels[8] && statProgress > plugin.lvlValues.FishingLevels[7]) { statLevel = 8; }
-			if (statProgress <= plugin.lvlValues.FishingLevels[9] && statProgress > plugin.lvlValues.FishingLevels[8]) { statLevel = 9; }
-			if (statProgress <= plugin.lvlValues.FishingLevels[10] && statProgress > plugin.lvlValues.FishingLevels[9]) { statLevel = 10; }
-			if (statProgress <= plugin.lvlValues.FishingLevels[11] && statProgress > plugin.lvlValues.FishingLevels[10]) { statLevel = 11; }
+			for (int i=1;i<12;i++) {
+				if (statProgress <= plugin.lvlValues.FishingLevels[i] && statProgress > plugin.lvlValues.FishingLevels[i-1]) { statLevel = i; }
+			}
 			if (statProgress >= plugin.lvlValues.FishingLevels[12]) { statLevel = 12; }
 		}
 		
@@ -245,13 +220,13 @@ public class CobbleCraftFileHandler {
 		
 		ArrayList<String> completed = new ArrayList<String>();
 		
-		if (getNumProperty(fileName, "PIGS_PRODDED") >= 5){
+		if (getNumProperty(fileName, Types.Pigs_prodded.get()) >= 5){
 			completed.add("PIG PRODDER");
 		}
-		if (getBoolProperty(fileName, "WORN_PUMPKIN") == true){
+		if (getBoolProperty(fileName, Types.Worn_pumpkin.get()) == true){
 			completed.add("IT'S HALLOWEEN?");
 		}
-		if(getNumProperty(fileName, "DIAMOND_COLLECTED") >= 3){
+		if(getNumProperty(fileName, Types.Bling_Bling.get()) >= 3){
 			completed.add("BLING, BLING!");
 		}
 		

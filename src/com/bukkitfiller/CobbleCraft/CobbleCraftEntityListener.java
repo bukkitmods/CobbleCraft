@@ -79,6 +79,4 @@ public class CobbleCraftEntityListener extends EntityListener {
 			}
 		}
 	}
-	
-	
 }
