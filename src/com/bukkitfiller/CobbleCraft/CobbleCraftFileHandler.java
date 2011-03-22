@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+
 import org.bukkit.entity.Player;
 
 public class CobbleCraftFileHandler {
@@ -24,7 +25,9 @@ public class CobbleCraftFileHandler {
 		Digging ("DIGGING"),
 		Farming ("FARMING"),
 		Pigs_prodded ("PIGS_PRODDED"),
-		Worn_pumpkin ("WORN_PUMPKIN");
+		Worn_pumpkin ("WORN_PUMPKIN"),
+		Bling_Bling ("DIAMOND_COLLECTED");
+		
 		
 		private final String statsName;
 		Types(String statsName) {
@@ -45,6 +48,7 @@ public class CobbleCraftFileHandler {
 				writeNumProperty(fileName, Types.Digging.get(), 0.00);
 				writeNumProperty(fileName, Types.Fishing.get(), 0.00);
 				writeNumProperty(fileName, Types.Pigs_prodded.get(), 0);
+				writeNumProperty(fileName, Types.Bling_Bling.get(), 0);
 				writeBoolProperty(fileName, Types.Worn_pumpkin.get(), false);
 			} catch(IOException ex) {
 				plugin.consoleWarning(ex.toString());
@@ -238,6 +242,7 @@ public class CobbleCraftFileHandler {
 	}
 	
 	public void getAchievements(String fileName, Player player){
+		
 		ArrayList<String> completed = new ArrayList<String>();
 		
 		if (getNumProperty(fileName, "PIGS_PRODDED") >= 5){
@@ -245,6 +250,9 @@ public class CobbleCraftFileHandler {
 		}
 		if (getBoolProperty(fileName, "WORN_PUMPKIN") == true){
 			completed.add("IT'S HALLOWEEN?");
+		}
+		if(getNumProperty(fileName, "DIAMOND_COLLECTED") >= 3){
+			completed.add("BLING, BLING!");
 		}
 		
 		plugin.achievementHandler.showAchievements(player, completed);

@@ -20,24 +20,31 @@ public class CobbleCraftEntityListener extends EntityListener {
 		
 		if (event instanceof EntityDamageByEntityEvent){
 			EntityDamageByEntityEvent e = (EntityDamageByEntityEvent) event;
-			Player player = (Player)e.getDamager();
-			String fileName = plugin.FILEDIRECTORY + player.getName() + ".stats";
 			
-			if(e.getEntity() instanceof Pig && player == e.getDamager() && player.getItemInHand().equals(Material.STICK)){
-				plugin.fileHandler.editNumProperty(fileName, "PIGS_PRODDED", 1);
+			if(event.getEntity() instanceof Pig && e.getDamager() instanceof Player){
+				Player player = (Player)e.getDamager();
+				if(player.getItemInHand().getType() == Material.STICK){
+					String fileName = plugin.FILEDIRECTORY + player.getName() + ".stats";
+					plugin.fileHandler.editNumProperty(fileName, "PIGS_PRODDED", 1.00);
+					if(plugin.fileHandler.getNumProperty(fileName, "PIGS_PRODDED") == 5){
+						plugin.broadcastAchievement(player, "PIG PRODDER");
+						plugin.fileHandler.getAchievements(fileName, player);
+					}
+				}
 			}
-			if (((EntityDamageByEntityEvent)event).getDamager() instanceof Player && event.getEntity() instanceof Monster) {
+			if (e.getDamager() instanceof Player && event.getEntity() instanceof Monster) {
 				Monster monster = (Monster)event.getEntity();
 				if (monster.getHealth() <= event.getDamage()) {
-					runKill((Player)((EntityDamageByEntityEvent)event).getDamager(),monster,false);
+					runKill((Player)e.getDamager(),monster,false);
 				}
 			}
 		}
 		if (event instanceof EntityDamageByProjectileEvent) {
-			if (((EntityDamageByProjectileEvent)event).getDamager() instanceof Player && event.getEntity() instanceof Monster) {
+			EntityDamageByProjectileEvent e = (EntityDamageByProjectileEvent) event;
+			if (e.getDamager() instanceof Player && event.getEntity() instanceof Monster) {
 				Monster monster = (Monster)event.getEntity();
 				if (monster.getHealth() <= event.getDamage()) {
-					runKill((Player)((EntityDamageByEntityEvent)event).getDamager(),monster,true);
+					runKill((Player)e.getDamager(),monster,true);
 				}
 			}
 		}

@@ -3,7 +3,6 @@ package com.bukkitfiller.CobbleCraft;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerEvent;
-import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
@@ -19,7 +18,9 @@ public class CobbleCraftPlayerListener extends PlayerListener {
 		String fileName = plugin.FILEDIRECTORY + player.getName() + ".stats";
 		if (player.getInventory().getHelmet().getType() == Material.PUMPKIN) {
 			if (!plugin.fileHandler.getBoolProperty(fileName, "WORN_PUMPKIN")) {
+				plugin.broadcastAchievement(player, "IT'S HALLOWEEN?");
 				plugin.fileHandler.editBoolProperty(fileName, "WORN_PUMPKIN", true);
+				plugin.fileHandler.getAchievements(fileName, player);
 			}
 		}
 	}
@@ -42,7 +43,13 @@ public class CobbleCraftPlayerListener extends PlayerListener {
 			plugin.fileHandler.editNumProperty(fileName, "FISHING", 1);
 			plugin.lvlValues.CheckLevelUp(fileName, player, plugin.lvlValues.FishingLevels, "Fishing");
 		}
-		checkForPumpkin(player);
+		if(item.equals(Material.DIAMOND)){
+			plugin.fileHandler.editNumProperty(fileName, "DIAMOND_COLLECTED", 1);
+			if(plugin.fileHandler.getNumProperty(fileName, "DIAMOND_COLLECTED") == 3){
+				plugin.broadcastAchievement(player, "BLING, BLING!");
+				plugin.fileHandler.getAchievements(fileName, player);
+			}
+		}
 	}
 	
 	@Override
@@ -50,9 +57,5 @@ public class CobbleCraftPlayerListener extends PlayerListener {
 		checkForPumpkin(event.getPlayer());
 	}
 
-	@Override
-	public void onItemHeldChange(PlayerItemHeldEvent event) {
-		checkForPumpkin(event.getPlayer());
-	}
 	
 }

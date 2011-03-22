@@ -2,6 +2,8 @@ package com.bukkitfiller.CobbleCraft;
 
 import java.util.logging.Logger;
 
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.Event.Priority;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -54,4 +56,8 @@ public class CobbleCraft extends JavaPlugin {
 		log.warning(desc.getName() + ": " + string);
 	}
 	
+	public void broadcastAchievement(Player player, String achievement){
+		getServer().broadcastMessage(ChatColor.DARK_PURPLE + player.getName() + ChatColor.YELLOW
+				+ " has just unlocked the achievement" + ChatColor.GREEN + " " + achievement.toUpperCase());
+	}
 }
