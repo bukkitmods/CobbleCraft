@@ -1,0 +1,18 @@
+name: CobbleCraft
+main: com.bukkitfiller.CobbleCraft.CobbleCraft
+version: 0.1a
+commands:
+  MINING:
+    description: Mining Skills
+  DIGGING:
+    description: Digging Skills
+  FISHING:
+    description: Fishing Skills
+  SLAYING:
+    description: Slaying Skills
+  HUNTING:
+    description: Hunting Skills
+  ARCHERY:
+    description: Archery Skills
+  ACHIEVEMENTS:
+    description: Achievements

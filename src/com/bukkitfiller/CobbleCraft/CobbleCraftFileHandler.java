@@ -26,6 +26,7 @@ public class CobbleCraftFileHandler {
 		Farming ("FARMING"),
 		Pigs_prodded ("PIGS_PRODDED"),
 		Worn_pumpkin ("WORN_PUMPKIN"),
+		Gold_Digga ("GOLD_DIGGA"),
 		Bling_Bling ("DIAMOND_COLLECTED");
 		
 		private final String statsName;
@@ -48,6 +49,7 @@ public class CobbleCraftFileHandler {
 				writeNumProperty(fileName, Types.Fishing.get(), 0.00);
 				writeNumProperty(fileName, Types.Pigs_prodded.get(), 0);
 				writeNumProperty(fileName, Types.Bling_Bling.get(), 0);
+				writeNumProperty(fileName, Types.Gold_Digga.get(), 0);
 				writeBoolProperty(fileName, Types.Worn_pumpkin.get(), false);
 			} catch(IOException ex) {
 				plugin.consoleWarning(ex.toString());
@@ -228,6 +230,9 @@ public class CobbleCraftFileHandler {
 		}
 		if(getNumProperty(fileName, Types.Bling_Bling.get()) >= 3){
 			completed.add("BLING, BLING!");
+		}
+		if(getNumProperty(fileName, Types.Gold_Digga.get()) >= 5){
+			completed.add("GOLD DIGGA");
 		}
 		
 		plugin.achievementHandler.showAchievements(player, completed);

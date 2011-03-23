@@ -61,9 +61,9 @@ public class CobbleCraftEntityListener extends EntityListener {
 			monster instanceof Giant || 
 			monster instanceof Zombie) {
 			String fileName = plugin.FILEDIRECTORY + player.getName() + ".stats";
-			plugin.fileHandler.editNumProperty(fileName, "SLAYING", 1);
+			plugin.fileHandler.editNumProperty(fileName, "SLAYING", 0.6);
 			if (archery) {
-				plugin.fileHandler.editNumProperty(fileName, "ARCHERY", 1);
+				plugin.fileHandler.editNumProperty(fileName, "ARCHERY", 0.34);
 			}
 		}
 		if (monster instanceof Sheep ||
@@ -73,9 +73,9 @@ public class CobbleCraftEntityListener extends EntityListener {
 			monster instanceof Squid) {
 			String fileName = plugin.FILEDIRECTORY + player.getName() + ".stats";
 			if (archery) {
-				plugin.fileHandler.editNumProperty(fileName, "ARCHERY", 1);
+				plugin.fileHandler.editNumProperty(fileName, "ARCHERY", 0.23);
 			} else {
-				plugin.fileHandler.editNumProperty(fileName, "HUNTING", 1);
+				plugin.fileHandler.editNumProperty(fileName, "HUNTING", 0.6);
 			}
 		}
 	}

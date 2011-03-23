@@ -38,9 +38,10 @@ public class CobbleCraftPlayerListener extends PlayerListener {
 		Material itemInHand = player.getItemInHand().getType();
 		Material item = event.getItem().getItemStack().getType();
 		String fileName = plugin.FILEDIRECTORY + event.getPlayer().getName() + ".stats";
+		double fishingMod = plugin.fileHandler.getLevel(fileName, "FISHING")/15;
 		
 		if (item.equals(Material.RAW_FISH) && itemInHand.equals(Material.FISHING_ROD)){
-			plugin.fileHandler.editNumProperty(fileName, "FISHING", 1);
+			plugin.fileHandler.editNumProperty(fileName, "FISHING", 1 + fishingMod );
 			plugin.lvlValues.CheckLevelUp(fileName, player, plugin.lvlValues.FishingLevels, "Fishing");
 		}
 		if(item.equals(Material.DIAMOND)){

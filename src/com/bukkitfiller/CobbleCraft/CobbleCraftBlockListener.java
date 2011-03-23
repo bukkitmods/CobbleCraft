@@ -6,6 +6,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockListener;
 
+import com.bukkitfiller.CobbleCraft.CobbleCraftFileHandler.Types;
+
 public class CobbleCraftBlockListener extends BlockListener {
 	private CobbleCraft plugin;	
 	
@@ -36,130 +38,139 @@ public class CobbleCraftBlockListener extends BlockListener {
 	}
 	
 	public void hitMiningBlock(Player player, Block block, Material playersItem, String fileName){
+		double miningMod = plugin.fileHandler.getLevel(fileName, "MINING") / 18;
 		
 		if (block.getType() == Material.COBBLESTONE){
 			if (playersItem == Material.WOOD_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.1);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.1 + miningMod);
 			}
 			if (playersItem == Material.STONE_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.2);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.2 + miningMod);
 			}
 			if (playersItem == Material.IRON_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.3);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.3 + miningMod);
 			}
 			if (playersItem == Material.GOLD_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.4);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.4 + miningMod);
 			}
 			if (playersItem == Material.DIAMOND_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.5);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.5 + miningMod);
 			}
 		}
 		
 		if (block.getType() == Material.STONE){
 			if (playersItem == Material.WOOD_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.2);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.2 + miningMod);
 			}
 			if (playersItem == Material.STONE_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.3);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.3 + miningMod);
 			}
 			if (playersItem == Material.IRON_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.4);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.4 + miningMod);
 			}
 			if (playersItem == Material.GOLD_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.5);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.5 + miningMod);
 			}
 			if (playersItem == Material.DIAMOND_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.6);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.6 + miningMod);
 			}
 		}
 		
 		if (block.getType() == Material.COAL_ORE){
 			if (playersItem == Material.WOOD_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.28);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.28 + miningMod);
 			}
 			if (playersItem == Material.STONE_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.38);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.38 + miningMod);
 			}
 			if (playersItem == Material.IRON_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.48);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.48 + miningMod);
 			}
 			if (playersItem == Material.GOLD_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.58);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.58 + miningMod);
 			}
 			if (playersItem == Material.DIAMOND_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.68);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.68 + miningMod);
 			}
 		}
 		
 		if (block.getType() == Material.IRON_ORE){
 			if (playersItem == Material.WOOD_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.34);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.34 + miningMod);
 			}
 			if (playersItem == Material.STONE_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.44);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.44 + miningMod);
 			}
 			if (playersItem == Material.IRON_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.54);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.54 + miningMod);
 			}
 			if (playersItem == Material.GOLD_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.64);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.64 + miningMod);
 			}
 			if (playersItem == Material.DIAMOND_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.74);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.74 + miningMod);
 			}
 		}
 		
 		if (block.getType() == Material.GOLD_ORE){
+			
+			//Gold Digga Achievement (5 Gold Ore).
+			plugin.fileHandler.writeNumProperty(fileName, Types.Gold_Digga.get(), 1);
+			if(plugin.fileHandler.getNumProperty(fileName, "GOLD_DIGGA") == 5){
+				plugin.broadcastAchievement(player, "GOLD DIGGA");
+				plugin.fileHandler.getAchievements(fileName, player);
+			}
+			
 			if (playersItem == Material.WOOD_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.39);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.39 + miningMod);
 			}
 			if (playersItem == Material.STONE_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.49);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.49 + miningMod);
 			}
 			if (playersItem == Material.IRON_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.59);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.59 + miningMod);
 			}
 			if (playersItem == Material.GOLD_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.69);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.69 + miningMod);
 			}
 			if (playersItem == Material.DIAMOND_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.79);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.79 + miningMod);
 			}
 		}
 		
 		if (block.getType() == Material.REDSTONE_ORE){
 			if (playersItem == Material.WOOD_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.52);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.52 + miningMod);
 			}
 			if (playersItem == Material.STONE_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.62);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.62 + miningMod);
 			}
 			if (playersItem == Material.IRON_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.72);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.72 + miningMod);
 			}
 			if (playersItem == Material.GOLD_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.82);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.82 + miningMod);
 			}
 			if (playersItem == Material.DIAMOND_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.92);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.92 + miningMod);
 			}
 		}
 		
 		if (block.getType() == Material.DIAMOND_ORE){
 			if (playersItem == Material.WOOD_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.60);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.60 + miningMod);
 			}
 			if (playersItem == Material.STONE_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.70);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.70 + miningMod);
 			}
 			if (playersItem == Material.IRON_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.80);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.80 + miningMod);
 			}
 			if (playersItem == Material.GOLD_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.90);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 0.90 + miningMod);
 			}
 			if (playersItem == Material.DIAMOND_PICKAXE){
-				plugin.fileHandler.editNumProperty(fileName, "MINING", 1.00);
+				plugin.fileHandler.editNumProperty(fileName, "MINING", 1.00 + miningMod);
 			}
 		}
 		

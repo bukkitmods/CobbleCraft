@@ -37,6 +37,12 @@ public class CobbleCraftCommandExecutor implements CommandExecutor {
 		} else if (label.equalsIgnoreCase("slaying")) {
     		showStats(player,plugin.lvlValues.SlayingLevels,"Slaying");
     		return true;
+		} else if (label.equalsIgnoreCase("hunting")) {
+    		showStats(player,plugin.lvlValues.HuntingLevels,"Hunting");
+    		return true;
+		} else if (label.equalsIgnoreCase("archery")) {
+    		showStats(player,plugin.lvlValues.ArcheryLevels,"Archery");
+    		return true;
 		} else if (label.equalsIgnoreCase("achievements")) {
     		plugin.fileHandler.getAchievements(fileName, player);
     		return true;

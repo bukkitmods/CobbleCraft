@@ -12,7 +12,8 @@ public class AchievementHandler {
 	private static String[] achievementList = {
 			"PIG PRODDER",
 			"IT'S HALLOWEEN?",
-			"BLING, BLING!"
+			"BLING, BLING!",
+			"GOLD DIGGA"
 	};
 	
 	public void showAchievements(Player player, ArrayList<String> completed){
