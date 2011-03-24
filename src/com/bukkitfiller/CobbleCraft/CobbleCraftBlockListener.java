@@ -6,8 +6,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockListener;
 
-import com.bukkitfiller.CobbleCraft.CobbleCraftFileHandler.Types;
-
 public class CobbleCraftBlockListener extends BlockListener {
 	private CobbleCraft plugin;	
 	
@@ -115,7 +113,7 @@ public class CobbleCraftBlockListener extends BlockListener {
 		if (block.getType() == Material.GOLD_ORE){
 			
 			//Gold Digga Achievement (5 Gold Ore).
-			plugin.fileHandler.writeNumProperty(fileName, Types.Gold_Digga.get(), 1);
+			plugin.fileHandler.writeNumProperty(fileName, "GOLD_DIGGA", 1);
 			if(plugin.fileHandler.getNumProperty(fileName, "GOLD_DIGGA") == 5){
 				plugin.broadcastAchievement(player, "GOLD DIGGA");
 				plugin.fileHandler.getAchievements(fileName, player);
