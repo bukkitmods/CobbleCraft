@@ -25,7 +25,10 @@ public class CobbleCraftCommandExecutor implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
     	Player player = (Player)sender;
     	String fileName = plugin.FILEDIRECTORY + player.getName() + ".stats";
-    	if (label.equalsIgnoreCase("mining")) {
+    	if (label.equalsIgnoreCase("stats")) {
+    		showStatHelp(player);
+    		return true;
+		} else if (label.equalsIgnoreCase("mining")) {
     		showStats(player,plugin.lvlValues.MiningLevels,"Mining");
     		return true;
 		} else if (label.equalsIgnoreCase("digging")) {
@@ -46,13 +49,17 @@ public class CobbleCraftCommandExecutor implements CommandExecutor {
 		} else if (label.equalsIgnoreCase("achievements")) {
     		plugin.fileHandler.getAchievements(fileName, player);
     		return true;
-		} else if (label.equalsIgnoreCase("setrole") && args.length >= 1){
-			String playerSequence = args[0].toLowerCase();
-			String firstLetter = playerSequence.substring(0, 1);
-			String playerName = playerSequence.replaceFirst(firstLetter, firstLetter.toUpperCase());
-			player.setDisplayName(ChatColor.BLACK + "[" + ChatColor.YELLOW + playerName
-					+ ChatColor.BLACK + "] " + player.getDisplayName());
+		} else{
+			return false;
 		}
-		return false;
+    }
+    
+    private void showStatHelp(Player player){
+    	player.sendMessage(ChatColor.LIGHT_PURPLE + "/Achievements" + ChatColor.GREEN + " - Shows your Achievement progress");
+    	player.sendMessage(ChatColor.LIGHT_PURPLE + "/Mining" + ChatColor.GREEN + " - Shows your Mining progress");
+    	player.sendMessage(ChatColor.LIGHT_PURPLE + "/Digging" + ChatColor.GREEN + " - Shows your Digging progress");
+    	player.sendMessage(ChatColor.LIGHT_PURPLE + "/Fishing" + ChatColor.GREEN + " - Shows your Fishing progress");
+    	player.sendMessage(ChatColor.LIGHT_PURPLE + "/Slaying" + ChatColor.GREEN + " - Shows your Slaying progress");
+    	player.sendMessage(ChatColor.LIGHT_PURPLE + "/Archery" + ChatColor.GREEN + " - Shows your Archery progress");
     }
 }
