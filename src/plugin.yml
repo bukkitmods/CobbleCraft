@@ -12,3 +12,5 @@ commands:
     description: Slaying Skills
   achievements:
     description: Acheivements
+  setrole:
+    description: Set Role

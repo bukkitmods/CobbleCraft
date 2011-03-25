@@ -195,7 +195,23 @@ public class CobbleCraftFileHandler {
 			for (int i=1;i<12;i++) {
 				if (statProgress <= plugin.lvlValues.DiggingLevels[i] && statProgress > plugin.lvlValues.DiggingLevels[i-1]) { statLevel = i; }
 			}
-			if (statProgress >= plugin.lvlValues.DiggingLevels[12]) { statLevel = 12; }
+			if (statProgress >= plugin.lvlValues.DiggingLevels[11]) { statLevel = 12; }
+		}
+		
+		if (key.equalsIgnoreCase("SLAYING")){
+			if (statProgress <= plugin.lvlValues.SlayingLevels[0]) { statLevel = 0; }
+			for (int i=1;i<12;i++) {
+				if (statProgress <= plugin.lvlValues.SlayingLevels[i] && statProgress > plugin.lvlValues.SlayingLevels[i-1]) { statLevel = i; }
+			}
+			if (statProgress >= plugin.lvlValues.SlayingLevels[11]) { statLevel = 12; }
+		}
+		
+		if (key.equalsIgnoreCase("ARCHERY")){
+			if (statProgress <= plugin.lvlValues.ArcheryLevels[0]) { statLevel = 0; }
+			for (int i=1;i<12;i++) {
+				if (statProgress <= plugin.lvlValues.ArcheryLevels[i] && statProgress > plugin.lvlValues.ArcheryLevels[i-1]) { statLevel = i; }
+			}
+			if (statProgress >= plugin.lvlValues.ArcheryLevels[11]) { statLevel = 12; }
 		}
 		
 		if (key.equalsIgnoreCase("MINING")){
@@ -203,7 +219,7 @@ public class CobbleCraftFileHandler {
 			for (int i=1;i<12;i++) {
 				if (statProgress <= plugin.lvlValues.MiningLevels[i] && statProgress > plugin.lvlValues.MiningLevels[i-1]) { statLevel = i; }
 			}
-			if (statProgress >= plugin.lvlValues.MiningLevels[12]) { statLevel = 12; }
+			if (statProgress >= plugin.lvlValues.MiningLevels[11]) { statLevel = 12; }
 		}
 		
 		if (key.equalsIgnoreCase("FISHING")){
@@ -211,7 +227,7 @@ public class CobbleCraftFileHandler {
 			for (int i=1;i<12;i++) {
 				if (statProgress <= plugin.lvlValues.FishingLevels[i] && statProgress > plugin.lvlValues.FishingLevels[i-1]) { statLevel = i; }
 			}
-			if (statProgress >= plugin.lvlValues.FishingLevels[12]) { statLevel = 12; }
+			if (statProgress >= plugin.lvlValues.FishingLevels[11]) { statLevel = 12; }
 		}
 		
 		return statLevel;

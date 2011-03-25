@@ -46,6 +46,12 @@ public class CobbleCraftCommandExecutor implements CommandExecutor {
 		} else if (label.equalsIgnoreCase("achievements")) {
     		plugin.fileHandler.getAchievements(fileName, player);
     		return true;
+		} else if (label.equalsIgnoreCase("setrole") && args.length >= 1){
+			String playerSequence = args[0].toLowerCase();
+			String firstLetter = playerSequence.substring(0, 1);
+			String playerName = playerSequence.replaceFirst(firstLetter, firstLetter.toUpperCase());
+			player.setDisplayName(ChatColor.BLACK + "[" + ChatColor.YELLOW + playerName
+					+ ChatColor.BLACK + "] " + player.getDisplayName());
 		}
 		return false;
     }
