@@ -12,5 +12,11 @@ commands:
     description: Slaying Skills
   achievements:
     description: Acheivements
+  hunting:
+    description: Hunting Skills
+  archery:
+    description: Archery Skills
+  stats:
+    description: Show Stats
   setrole:
     description: Set Role
