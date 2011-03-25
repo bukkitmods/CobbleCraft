@@ -27,10 +27,14 @@ public class CobbleCraft extends JavaPlugin {
 		PluginManager pm = getServer().getPluginManager();
 		CobbleCraftFileHandler.writeDir(FILEDIRECTORY);
 		
+		getCommand("stats").setExecutor(commandExecutor);
 		getCommand("mining").setExecutor(commandExecutor);
+		getCommand("archery").setExecutor(commandExecutor);
+		getCommand("setrole").setExecutor(commandExecutor);
 		getCommand("digging").setExecutor(commandExecutor);
 		getCommand("fishing").setExecutor(commandExecutor);
 		getCommand("slaying").setExecutor(commandExecutor);
+		getCommand("hunting").setExecutor(commandExecutor);
 		getCommand("achievements").setExecutor(commandExecutor);
 		
 		pm.registerEvent(Event.Type.BLOCK_BREAK, this.blockListener, Priority.Normal, this);

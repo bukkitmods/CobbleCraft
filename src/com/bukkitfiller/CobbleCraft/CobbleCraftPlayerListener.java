@@ -17,7 +17,7 @@ public class CobbleCraftPlayerListener extends PlayerListener {
 	private void checkForPumpkin(Player player) {
 		String fileName = plugin.FILEDIRECTORY + player.getName() + ".stats";
 		if (player.getInventory().getHelmet().getType() == Material.PUMPKIN) {
-			if (!plugin.fileHandler.getBoolProperty(fileName, "WORN_PUMPKIN")) {
+			if (!plugin.fileHandler.getBoolProperty(fileName, player, "WORN_PUMPKIN")) {
 				plugin.broadcastAchievement(player, "IT'S HALLOWEEN?");
 				plugin.fileHandler.editBoolProperty(fileName, "WORN_PUMPKIN", true);
 				plugin.fileHandler.getAchievements(fileName, player);
@@ -29,7 +29,8 @@ public class CobbleCraftPlayerListener extends PlayerListener {
 	public void onPlayerJoin(PlayerEvent event) {
 		Player player = event.getPlayer();
 		String fileName = plugin.FILEDIRECTORY + player.getName() + ".stats";
-		plugin.fileHandler.writePlayerFile(fileName);
+		player.setDisplayName(plugin.fileHandler.getStringProperty(fileName, player, "PLAYER_TAG"));
+		plugin.fileHandler.writePlayerFile(fileName, player);
 	}
 
 	@Override
@@ -46,7 +47,7 @@ public class CobbleCraftPlayerListener extends PlayerListener {
 		}
 		if(item.equals(Material.DIAMOND)){
 			plugin.fileHandler.editNumProperty(fileName, "DIAMOND_COLLECTED", 1);
-			if(plugin.fileHandler.getNumProperty(fileName, "DIAMOND_COLLECTED") == 3){
+			if(plugin.fileHandler.getNumProperty(fileName, player,  "DIAMOND_COLLECTED") == 3){
 				plugin.broadcastAchievement(player, "BLING, BLING!");
 				plugin.fileHandler.getAchievements(fileName, player);
 			}

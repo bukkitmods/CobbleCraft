@@ -18,6 +18,7 @@ public class CobbleCraftFileHandler {
 	}
 	
 	enum Types {
+		PlayerTag ("PLAYER_TAG"),
 		Mining ("MINING"),
 		Fishing ("FISHING"),
 		Slaying ("SLAYING"),
@@ -36,21 +37,22 @@ public class CobbleCraftFileHandler {
 		String get() { return statsName; }
 	};
 	
-	public void writePlayerFile(String fileName){
+	public void writePlayerFile(String fileName, Player player){
 		File file = new File(fileName);
 		if (!file.exists()){
 			try {
 				file.createNewFile();
-				writeNumProperty(fileName, Types.Mining.get(), 0.00);
-				writeNumProperty(fileName, Types.Fishing.get(), 0.00);
-				writeNumProperty(fileName, Types.Slaying.get(), 0.00);
-				writeNumProperty(fileName, Types.Archery.get(), 0.00);
-				writeNumProperty(fileName, Types.Digging.get(), 0.00);
-				writeNumProperty(fileName, Types.Fishing.get(), 0.00);
-				writeNumProperty(fileName, Types.Pigs_prodded.get(), 0);
-				writeNumProperty(fileName, Types.Bling_Bling.get(), 0);
-				writeNumProperty(fileName, Types.Gold_Digga.get(), 0);
-				writeBoolProperty(fileName, Types.Worn_pumpkin.get(), false);
+				writeStringProperty(fileName, player, Types.PlayerTag.get(), player.getDisplayName());
+				writeNumProperty(fileName, player, Types.Mining.get(), 0.00);
+				writeNumProperty(fileName, player, Types.Fishing.get(), 0.00);
+				writeNumProperty(fileName, player, Types.Slaying.get(), 0.00);
+				writeNumProperty(fileName, player, Types.Archery.get(), 0.00);
+				writeNumProperty(fileName, player, Types.Digging.get(), 0.00);
+				writeNumProperty(fileName, player, Types.Fishing.get(), 0.00);
+				writeNumProperty(fileName, player, Types.Pigs_prodded.get(), 0);
+				writeNumProperty(fileName, player, Types.Bling_Bling.get(), 0);
+				writeNumProperty(fileName, player, Types.Gold_Digga.get(), 0);
+				writeBoolProperty(fileName, player, Types.Worn_pumpkin.get(), false);
 			} catch(IOException ex) {
 				plugin.consoleWarning(ex.toString());
 			}
@@ -64,13 +66,13 @@ public class CobbleCraftFileHandler {
 		}
 	}
 
-	public void writeNumProperty(String fileName, String key, double d){
+	public void writeNumProperty(String fileName, Player player, String key, double d){
 		File file = new File(fileName);
 		PropertyOrder props = new PropertyOrder();
 		d = r2d(d);
 		String value = String.valueOf(d);
 		
-		if (!file.exists()) { writePlayerFile(fileName); }
+		if (!file.exists()) { writePlayerFile(fileName,player); }
 		
 		
 		try {
@@ -88,12 +90,34 @@ public class CobbleCraftFileHandler {
 		}
 	}
 	
-	public void writeBoolProperty(String fileName, String key, boolean b){
+	public void writeStringProperty(String fileName, Player player, String key, String value){
+		File file = new File(fileName);
+		PropertyOrder props = new PropertyOrder();
+		
+		if (!file.exists()) { writePlayerFile(fileName,player); }
+		
+		
+		try {
+			props.load(new FileInputStream(file));} catch (FileNotFoundException e) {} catch (IOException e) {
+		}
+		
+		props.put(key.toUpperCase(), value);
+		
+		try {
+			props.store(new FileOutputStream(file), null);
+		} catch (FileNotFoundException e) {
+			plugin.consoleWarning(e.toString());
+		} catch (IOException e) {
+			plugin.consoleWarning(e.toString());
+		}
+	}
+	
+	public void writeBoolProperty(String fileName, Player player, String key, boolean b){
 		File file = new File(fileName);
 		PropertyOrder props = new PropertyOrder();
 		String value = String.valueOf(b);
 		
-		if (!file.exists()) { writePlayerFile(fileName); }
+		if (!file.exists()) { writePlayerFile(fileName, player); }
 		
 		try {
 			props.load(new FileInputStream(file));} catch (FileNotFoundException e) {} catch (IOException e) {
@@ -128,7 +152,22 @@ public class CobbleCraftFileHandler {
 			plugin.consoleWarning(e.toString());
 		}
 	}
-
+	
+	public void editStringProperty(String fileName, String key, String value){
+		File file = new File(fileName);
+		PropertyOrder props = new PropertyOrder();
+		
+		try {
+			props.load(new FileInputStream(file));
+			props.setProperty(key, value);
+			props.store(new FileOutputStream(file), null);
+		} catch (FileNotFoundException e) {
+			plugin.consoleWarning(e.toString());
+		} catch (IOException e) {
+			plugin.consoleWarning(e.toString());
+		}
+	}
+	
 	public void editBoolProperty(String fileName, String key, boolean b){
 		File file = new File(fileName);
 		PropertyOrder props = new PropertyOrder();
@@ -145,10 +184,10 @@ public class CobbleCraftFileHandler {
 		}
 	}
 	
-	public double getNumProperty(String fileName, String key){
+	public double getNumProperty(String fileName, Player player, String key){
 		PropertyOrder props = new PropertyOrder();
 		File file = new File(fileName);
-		if (!file.exists()){ writePlayerFile(fileName); }
+		if (!file.exists()){ writePlayerFile(fileName,player); }
 		
 		try {
 			props.load(new FileInputStream(file));
@@ -160,11 +199,27 @@ public class CobbleCraftFileHandler {
 		Double value = r2d(Double.parseDouble(props.getProperty(key.toUpperCase())));
 		return value;
 	}
-
-	public boolean getBoolProperty(String fileName, String key){
+	
+	public String getStringProperty(String fileName, Player player, String key){
 		PropertyOrder props = new PropertyOrder();
 		File file = new File(fileName);
-		if (!file.exists()){ writePlayerFile(fileName); }
+		if (!file.exists()){ writePlayerFile(fileName,player); }
+		
+		try {
+			props.load(new FileInputStream(file));
+		} catch (FileNotFoundException e) {
+			plugin.consoleWarning(e.toString());
+		} catch (IOException e) {
+			plugin.consoleWarning(e.toString());
+		}
+		String value = props.getProperty(key);
+		return value;
+	}
+	
+	public boolean getBoolProperty(String fileName, Player player, String key){
+		PropertyOrder props = new PropertyOrder();
+		File file = new File(fileName);
+		if (!file.exists()){ writePlayerFile(fileName,player); }
 		
 		try {
 			props.load(new FileInputStream(file));
@@ -238,16 +293,16 @@ public class CobbleCraftFileHandler {
 		
 		ArrayList<String> completed = new ArrayList<String>();
 		
-		if (getNumProperty(fileName, Types.Pigs_prodded.get()) >= 5){
+		if (getNumProperty(fileName, player, Types.Pigs_prodded.get()) >= 5){
 			completed.add("PIG PRODDER");
 		}
-		if (getBoolProperty(fileName, Types.Worn_pumpkin.get()) == true){
+		if (getBoolProperty(fileName, player, Types.Worn_pumpkin.get()) == true){
 			completed.add("IT'S HALLOWEEN?");
 		}
-		if(getNumProperty(fileName, Types.Bling_Bling.get()) >= 3){
+		if(getNumProperty(fileName, player,  Types.Bling_Bling.get()) >= 3){
 			completed.add("BLING, BLING!");
 		}
-		if(getNumProperty(fileName, Types.Gold_Digga.get()) >= 5){
+		if(getNumProperty(fileName, player,  Types.Gold_Digga.get()) >= 5){
 			completed.add("GOLD DIGGA");
 		}
 		

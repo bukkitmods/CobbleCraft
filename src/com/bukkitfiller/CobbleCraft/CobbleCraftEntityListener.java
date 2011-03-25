@@ -26,7 +26,7 @@ public class CobbleCraftEntityListener extends EntityListener {
 				if(player.getItemInHand().getType() == Material.STICK){
 					String fileName = plugin.FILEDIRECTORY + player.getName() + ".stats";
 					plugin.fileHandler.editNumProperty(fileName, "PIGS_PRODDED", 1.00);
-					if(plugin.fileHandler.getNumProperty(fileName, "PIGS_PRODDED") == 5){
+					if(plugin.fileHandler.getNumProperty(fileName, player, "PIGS_PRODDED") == 5){
 						plugin.broadcastAchievement(player, "PIG PRODDER");
 						plugin.fileHandler.getAchievements(fileName, player);
 					}

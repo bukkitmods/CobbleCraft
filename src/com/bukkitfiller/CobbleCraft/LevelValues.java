@@ -18,7 +18,7 @@ public class LevelValues {
 	public final int[] ArcheryLevels = {2,5,15,24,32,29,54,69,87,112,132,155};
 	
 	public void CheckLevelUp(String fileName, Player player, int[] levels, String type){
-		Double playerExp = plugin.fileHandler.getNumProperty(fileName, type.toUpperCase());
+		Double playerExp = plugin.fileHandler.getNumProperty(fileName, player, type.toUpperCase());
 		int playerLevel = plugin.fileHandler.getLevel(fileName, type.toUpperCase());
 		
 		for (int i = 0; i < levels.length; i++){
@@ -26,6 +26,7 @@ public class LevelValues {
 				plugin.fileHandler.editNumProperty(fileName, type.toUpperCase(), 1.01);
 				player.sendMessage(ChatColor.RED + "You have advanced a " +type+ " level!");
 				player.sendMessage("Your " +type+ " level is now: " + ChatColor.GOLD + (playerLevel + 1));
+				player.sendMessage("--------------------------------------------------");
 			}
 		}
 	}

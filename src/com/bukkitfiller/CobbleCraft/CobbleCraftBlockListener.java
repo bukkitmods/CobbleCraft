@@ -36,7 +36,7 @@ public class CobbleCraftBlockListener extends BlockListener {
 	}
 	
 	public void hitMiningBlock(Player player, Block block, Material playersItem, String fileName){
-		double miningMod = plugin.fileHandler.getLevel(fileName, "MINING") / 18;
+		double miningMod = plugin.fileHandler.getLevel(fileName, "MINING") / 18 + Math.random() / 4;
 		
 		if (block.getType() == Material.COBBLESTONE){
 			if (playersItem == Material.WOOD_PICKAXE){
@@ -113,8 +113,8 @@ public class CobbleCraftBlockListener extends BlockListener {
 		if (block.getType() == Material.GOLD_ORE){
 			
 			//Gold Digga Achievement (5 Gold Ore).
-			plugin.fileHandler.writeNumProperty(fileName, "GOLD_DIGGA", 1);
-			if(plugin.fileHandler.getNumProperty(fileName, "GOLD_DIGGA") == 5){
+			plugin.fileHandler.editNumProperty(fileName, "GOLD_DIGGA", 1);
+			if(plugin.fileHandler.getNumProperty(fileName, player, "GOLD_DIGGA") == 5){
 				plugin.broadcastAchievement(player, "GOLD DIGGA");
 				plugin.fileHandler.getAchievements(fileName, player);
 			}
