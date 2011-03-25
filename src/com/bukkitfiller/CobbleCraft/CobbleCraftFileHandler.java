@@ -25,6 +25,7 @@ public class CobbleCraftFileHandler {
 		Archery ("ARCHERY"),
 		Digging ("DIGGING"),
 		Farming ("FARMING"),
+		Hunting ("HUNTING"),
 		Pigs_prodded ("PIGS_PRODDED"),
 		Worn_pumpkin ("WORN_PUMPKIN"),
 		Gold_Digga ("GOLD_DIGGA"),
@@ -46,6 +47,7 @@ public class CobbleCraftFileHandler {
 				writeNumProperty(fileName, player, Types.Mining.get(), 0.00);
 				writeNumProperty(fileName, player, Types.Fishing.get(), 0.00);
 				writeNumProperty(fileName, player, Types.Slaying.get(), 0.00);
+				writeNumProperty(fileName, player, Types.Hunting.get(), 0.00);
 				writeNumProperty(fileName, player, Types.Archery.get(), 0.00);
 				writeNumProperty(fileName, player, Types.Digging.get(), 0.00);
 				writeNumProperty(fileName, player, Types.Fishing.get(), 0.00);

@@ -30,26 +30,32 @@ public class CobbleCraftCommandExecutor implements CommandExecutor {
     	}
     	else if (label.equalsIgnoreCase("mining")) {
     		showStats(player,plugin.lvlValues.MiningLevels,"Mining");
+    		player.sendMessage("-------------------------------------------------------");
     		player.sendMessage("Can be gained by using a Pickaxe");
     		return true;
 		} else if (label.equalsIgnoreCase("digging")) {
     		showStats(player,plugin.lvlValues.DiggingLevels,"Digging");
+    		player.sendMessage("-------------------------------------------------------");
     		player.sendMessage("Can be gained by using a Shovel");
     		return true;
 		} else if (label.equalsIgnoreCase("fishing")) {
     		showStats(player,plugin.lvlValues.FishingLevels,"Fishing");
+    		player.sendMessage("-------------------------------------------------------");
     		player.sendMessage("Can be gained by using a Fishing Rod");
     		return true;
 		} else if (label.equalsIgnoreCase("slaying")) {
     		showStats(player,plugin.lvlValues.SlayingLevels,"Slaying");
+    		player.sendMessage("-------------------------------------------------------");
     		player.sendMessage("Can be gained by killing mobs");
     		return true;
 		} else if (label.equalsIgnoreCase("hunting")) {
     		showStats(player,plugin.lvlValues.HuntingLevels,"Hunting");
+    		player.sendMessage("-------------------------------------------------------");
     		player.sendMessage("Can be gained by killing animals");
     		return true;
 		} else if (label.equalsIgnoreCase("archery")) {
     		showStats(player,plugin.lvlValues.ArcheryLevels,"Archery");
+    		player.sendMessage("-------------------------------------------------------");
     		player.sendMessage("Can be gained by using a Bow and Arrow");
     		return true;
 		} else if (label.equalsIgnoreCase("achievements")) {
@@ -60,12 +66,12 @@ public class CobbleCraftCommandExecutor implements CommandExecutor {
 			String playerSequence = args[0].toLowerCase();
 			String firstLetter = playerSequence.substring(0, 1);
 			if(playerSequence.equalsIgnoreCase("reset")){
-				player.setDisplayName("");
+				player.setDisplayName("" + ChatColor.WHITE + player.getName());
 				plugin.fileHandler.editStringProperty(fileName, "PLAYER_TAG", player.getDisplayName());
 		    } else{
 			String playerName = playerSequence.replaceFirst(firstLetter, firstLetter.toUpperCase());
 			player.setDisplayName(ChatColor.BLUE + "[" + ChatColor.YELLOW + playerName
-				+ ChatColor.BLUE + "] " + ChatColor.WHITE + player.getDisplayName());
+				+ ChatColor.BLUE + "] " + ChatColor.WHITE + player.getName());
 			plugin.fileHandler.editStringProperty(fileName, "PLAYER_TAG", player.getDisplayName());
 			}
 		}

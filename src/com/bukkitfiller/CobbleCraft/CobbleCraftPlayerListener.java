@@ -59,5 +59,4 @@ public class CobbleCraftPlayerListener extends PlayerListener {
 		checkForPumpkin(event.getPlayer());
 	}
 
-	
 }

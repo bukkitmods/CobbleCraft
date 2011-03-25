@@ -34,9 +34,7 @@ public class CobbleCraftEntityListener extends EntityListener {
 			}
 			if (e.getDamager() instanceof Player && event.getEntity() instanceof Monster) {
 				Monster monster = (Monster)event.getEntity();
-				if (monster.getHealth() <= event.getDamage()) {
-					runKill((Player)e.getDamager(),monster,false);
-				}
+				runKill((Player)e.getDamager(),monster,false);
 			}
 		}
 		if (event instanceof EntityDamageByProjectileEvent) {
@@ -61,21 +59,25 @@ public class CobbleCraftEntityListener extends EntityListener {
 			monster instanceof Giant || 
 			monster instanceof Zombie) {
 			String fileName = plugin.FILEDIRECTORY + player.getName() + ".stats";
-			plugin.fileHandler.editNumProperty(fileName, "SLAYING", 0.6);
+			plugin.fileHandler.editNumProperty(fileName, "SLAYING", 0.13);
+			plugin.lvlValues.CheckLevelUp(fileName, player, plugin.lvlValues.SlayingLevels, "Slaying");
 			if (archery) {
-				plugin.fileHandler.editNumProperty(fileName, "ARCHERY", 0.34);
+				plugin.fileHandler.editNumProperty(fileName, "ARCHERY", 0.19);
+				plugin.lvlValues.CheckLevelUp(fileName, player, plugin.lvlValues.ArcheryLevels, "Archery");
 			}
 		}
-		if (monster instanceof Sheep ||
+		else if (monster instanceof Sheep ||
 			monster instanceof Cow ||
 			monster instanceof Pig ||
 			monster instanceof Chicken ||
 			monster instanceof Squid) {
 			String fileName = plugin.FILEDIRECTORY + player.getName() + ".stats";
 			if (archery) {
-				plugin.fileHandler.editNumProperty(fileName, "ARCHERY", 0.23);
+				plugin.fileHandler.editNumProperty(fileName, "ARCHERY", 0.13);
+				plugin.lvlValues.CheckLevelUp(fileName, player, plugin.lvlValues.ArcheryLevels, "Archery");
 			} else {
-				plugin.fileHandler.editNumProperty(fileName, "HUNTING", 0.6);
+				plugin.fileHandler.editNumProperty(fileName, "HUNTING", 0.19);
+				plugin.lvlValues.CheckLevelUp(fileName, player, plugin.lvlValues.HuntingLevels, "Hunting");
 			}
 		}
 	}

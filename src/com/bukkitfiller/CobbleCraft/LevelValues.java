@@ -26,7 +26,6 @@ public class LevelValues {
 				plugin.fileHandler.editNumProperty(fileName, type.toUpperCase(), 1.01);
 				player.sendMessage(ChatColor.RED + "You have advanced a " +type+ " level!");
 				player.sendMessage("Your " +type+ " level is now: " + ChatColor.GOLD + (playerLevel + 1));
-				player.sendMessage("--------------------------------------------------");
 			}
 		}
 	}
